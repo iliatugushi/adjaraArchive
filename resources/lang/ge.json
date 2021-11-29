@@ -1,0 +1,120 @@
+{
+    "identity_area": "იდენტიფიცირების არე",
+    "identifier": "იდენტიფიკატორი",
+    "authorised_form_of_name": "ოფიციალური სახელწოდება",
+    "parallel_form_of_name": "პარალელური სახელწოდება",
+    "other_form_of_name": "სახელწოდების სხვა ფორმა",
+    "type_of_institution_with_archival_holdings": "არქივის ტიპი",
+
+    "contact_area": "კავშირის არე",
+    "location_and_address": "ლოკაცია და მისამართები",
+    "telephone_fax_email": "ტელეფონის ნომერი, ფაქსის ნომერი, ელ. ფოსტის მისამართი",
+    "contact_persons": "საკონტაქტო პირი",
+
+    "description_area": "აღწერის არე",
+    "history_of_the_institution_with_archival_holdings": "არქივის ისტორია",
+    "geographical_and_cultural_context": "გეოგრაფიული და კულტურული კონტექსტი",
+    "mandates_sources_of_authority": "მანდატი და უფლებამოსილების საფუძველი",
+    "administrative_structure": "ადმინისტრაციული სტრუქტურა",
+    "records_management_and_collecting_policies": "საარქივო ჩანაწერების შეგროვებისა და მართვის პოლიტიკა",
+    "building": "ფიზიკური სივრცეები",
+    "archival_and_other_holdings": "საარქივო და სხვა დოკუმენტების შემადგენლობა",
+    "finding_aids_guides_and_publications": "საძიებო რესურსები",
+
+    "access_area": "წვდომის არე",
+    "opening_times": "სამუშაო დრო",
+    "conditions_and_requirements_for_access_and_use": "ხელმისაწვდომობის და გამოყენების პირობები და მოთხოვნები",
+    "accessibility": "მიღწევადობა",
+
+    "services_area": "მომსახურების არე",
+    "research_services": "სერვისები მკვლევარებისათვის",
+    "reproduction_services": "რეპროდუქციის სერვისები",
+    "public_areas": "საზოგადოებრივი სივრცე",
+
+    "control_area": "კონტროლის არე",
+    "description_identifier": "აღწერის იდენტიფიკატორი",
+    "institution_identifier": "აღწერის შემქმნელის იდენტიფიკატორი",
+    "rules_and_or_conventions_used": "აღწერის სტანდარტი",
+    "status": "აღწერის სტატუსი",
+    "level_of_detail": "აღწერის სისრულე",
+    "dates_of_creation_revision_or_deletion": "შექმნის, რევიზიის და წაშლის თარიღი",
+    "language_and_script": "აღწერის ენა",
+    "sources": "კონსულტაციის წყარო",
+    "maintenance_notes": "შენიშვნები/ჩანაწერები",
+
+    "RELATING_DESCRIPTIONS_OF_INSTITUTIONS": "მაკავშრებელი აღწერები არქივსა და საარქივო მასალებს და მათ შემქმნელებს შორის",
+    "title_and_identifier_of_related_archival_material": "დაკავშირებული საარქივო მასალების სათაური და იდენტიფიკატორი",
+    "description_of_relationship": "კავშირის აღწერა",
+    "dates_of_relationship": "კავშირის თარიღები",
+    "authorised_name_and_authority_record": "არქივის ოფიციალური დასახელება და მასთან დაკავშირებული ჩანაწერის ინდენტიფიკატორი",
+    "megzuri": "მეგზური",
+
+    "RELATIONSHIPS_AREA": "კავშირის არე",
+
+    "type_of_entity": "სუბიექტის ტიპი",
+    "standardized_forms_of_name_according_to_other_rules": "სხვა წესით მინიჭებული დასახელება",
+    "identifiers_for_corporate_bodies": "კორპორაციის საიდენტიფიკაციო ნომერი ან პირის პირადი ნომერი",
+
+    "dates_of_existence": "დაბადების/დაარსების და გარდაცვალების/ლიკვიდაციის თარიღი",
+    "history": "ისტორია",
+    "places": "ადგილები",
+    "legal_status": "სამართლებრივი სტატუსი",
+    "functions_occupations_and_activities": "ფუნქციები, საქმიანობის სფერო და აქტივობები",
+    "internal_structures_genealogy": "შიდა სტრუქტურა/გენეალოგია",
+    "general_context": "ზოგადი კონტექსტი",
+
+    "names_identifiers_of_related_corporate_bodies": "დაკავშირებული სუბიექტის იდენტიფიკატორი",
+    "category_of_relationship": "კავშირის კატეგორია",
+    "dates_of_the_relationship": "კავშირის თარიღები",
+
+    "authority_record_identifier": "იდენტიფიკატორი",
+    "institution_identifiers": "ჩანაწერის შენახვა/მართვაზე პასუხისმგებელი ორგანიზაციის იდენტიფიკატორი",
+    "rules_and_or_conventions": "ეროვნული თუ საერთაშორისო წესები და სტანდარტები",
+    "dates_of_creationrevision_or_deletion": "შექმნის, რევიზიის და წაშლის თარიღი",
+
+    "identifiers_and_titles_of_related_resources": "დაკავშირებული რესურსების და მასალების იდენტიფიკატორიები და სათაურები",
+    "types_of_related_resources": "დაკავშირებული რესურსების ტიპები",
+    "nature_of_relationships": "რესურსებთან კავშირის ტიპი",
+    "dates_of_related_resources_and_or_relationships": "რესურსებთან კავშირის პერიოდი",
+
+    "CONTEXT_AREA": "კონტექსტის არე",
+    "CONTENT_AND_STRUCTURE_AREA": "შემცველობის და სტრუქტურის არე",
+    "CONDITIONS_OF_ACCESS_AND_USE_AREA": "წვდომის და გამოყენების პირობების არე",
+    "ALLIED_MATERIALS_AREA": "ჩანაწერთან მაკავშირებელი ინფორმაციის არე",
+    "NOTES_AREA": "შენიშვნები და კომენტარები",
+    "DESCRIPTION_CONTROL_AREA": "აღწერის კონტროლის არე",
+
+    "reference_code": "ჩანაწერის იდენტიფიკატორი",
+    "title": "ჩანაწერის სათაური",
+
+    "date": "ჩანაწერის შექმნის თარიღი",
+    "level_of_description": "აღწერის დონე",
+    "extent_and_medium_of_the_unit_of_description": "ჩანაწერის მოცულობა (რაოდენობა, შეკვრა, ზომა და ა.შ.)",
+
+    "name_of_creator": "ფონდშემქმნელი",
+    "administrative_biographical_history": "ფონდშემქმნელის ადმინისტრაციული და ბიოგრაფიული მონაცემები",
+    "archival_history": "საარქივო ჩანაწერის ისტორია",
+    "immediate_source_of_acquisition_or_transfer": "ჩანაწერის შეძენის ან გადაცემის წყარო",
+
+    "scope_and_content": "ჩანაწერის შინაარსის აღწერა ",
+    "appraisal_destruction_and_scheduling_information": "ინფორმაცია ჩანაწერის შეფასების, განადგურების და დაგეგმვის პროცესებზე",
+    "accruals": "ინფორმაცია ჩანაწერის ზრდასთან დაკავშირებით",
+    "system_of_arrangement": "ჩანაწერების დახარისხების სისტემა",
+
+    "conditions_governing_access": "ხელმისაწვდომობის წესები და პირობები",
+    "conditions_governing_reproduction": "რეპროდუქციის ან/და გამოყენების წესები და პირობები",
+    "language_scripts_of_material": "ენა, აბრევიატურები და გრაფიკული სიმბოლიკა",
+    "physical_characteristics_and_technical_requirements": "ფიზიკური მახასიათებლები და ტექნიკური მოთხოვნები",
+    "finding_aids": "სამეცნიერო-საცნობარო აპარატი",
+
+    "existence_and_location_of_originals": "ორიგინალი დოკუმენტების არსებობა და ადგილმდებარეობა",
+    "existence_and_location_of_copies": "დოკუმენტების ასლების არსებობა და ადგილმდებარეობა",
+    "related_units_of_description": "დაკავშირებული ჩანაწერები",
+    "publication_note": "პუბლიკაციები",
+
+    "note": "დამატებითი კომენტარები და შენიშვნები",
+
+    "archivists_note": "არქივისტის შენიშვნები",
+    "rules_or_conventions": "აღწერის სტანდარტი",
+    "date_of_descriptions": "აღწერის თარიღები"
+}
