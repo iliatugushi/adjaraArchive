@@ -186,6 +186,12 @@
                                 @endif
                             </ul>
                         </li>
+
+                        <li class="nav-item ">
+                            <a href="{{asset('Instruction.docx')}}" class="nav-link instructionL">
+                                <p> ინსტრუქცია </p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
