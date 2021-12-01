@@ -116,12 +116,6 @@ class AdminController extends ActionController
         return view('admin.dashboard');
     }
 
-    public function tree()
-    {
-        $archives = Archive::all();
-        return view('admin.tree.tree', ['archives' => $archives]);
-    }
-
     public function elementDetails(Request $request)
     {
         $model = $request->model;

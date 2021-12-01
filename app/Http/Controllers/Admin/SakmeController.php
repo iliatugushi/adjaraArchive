@@ -30,6 +30,7 @@ class SakmeController extends Controller
             return 'You Dont Have Permission';
         }
         $mode = 'create';
+
         return view('admin.sakmes.create', ['mode' => $mode, 'anaweri' => $anaweri]);
     }
 
@@ -49,8 +50,7 @@ class SakmeController extends Controller
             return 'You Dont Have Permission';
         }
         $mode = 'edit';
-        $anaweris = Anaweri::all();
-        return view('admin.sakmes.create', ['sakme' => $sakme, 'mode' => $mode, 'anaweris' => $anaweris]);
+        return view('admin.sakmes.create', ['sakme' => $sakme, 'mode' => $mode, 'anaweri' => $sakme->anaweri]);
     }
 
     public function show(Sakme $sakme)

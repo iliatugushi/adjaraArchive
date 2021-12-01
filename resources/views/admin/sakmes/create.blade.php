@@ -43,7 +43,7 @@
                     <div class="card-header">
                         <h3 class="card-title caps">
                             <b>
-                                <a href="{{route('sakmes.index', ['anaweri' => $sakme->anaweri->id])}}">
+                                <a href="{{route('sakmes.index', ['anaweri' => $anaweri->id])}}">
                                     საქმე
                                 </a>
                                 -
@@ -57,7 +57,7 @@
                             </b>
                         </h3>
                         <div class="card-tools">
-                            <a href="{{route('sakmes.index', ['anaweri' => $sakme->anaweri->id])}}"
+                            <a href="{{route('sakmes.index', ['anaweri' => $anaweri->id])}}"
                                 class="btn btn-block btn-outline-secondary btn-xs caps">
                                 უკან
                             </a>
@@ -112,7 +112,7 @@
                                         aria-labelledby="custom-tabs-three-tab1-tab">
 
                                         <div class="form-group">
-                                            <input type="hidden" name="anaweri_id" value="{{ $sakme->anaweri->id }}" />
+                                            <input type="hidden" name="anaweri_id" value="{{ $anaweri->id }}" />
                                             <label>{{ __('reference_code') }} *</label>
                                             <textarea class="form-control" name="reference_code"
                                                 required>{{ $mode === 'create' ? '' : $sakme->reference_code }}</textarea>

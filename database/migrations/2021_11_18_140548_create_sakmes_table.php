@@ -53,6 +53,8 @@ class CreateSakmesTable extends Migration
             $table->longText('archivists_note')->nullable();
             $table->longText('rules_or_conventions')->nullable();
             $table->longText('date_of_descriptions')->nullable();
+
+            $table->longText('files_path')->nullable();
         });
     }
 

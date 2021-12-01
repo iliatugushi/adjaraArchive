@@ -201,48 +201,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-3" style="margin-bottom:10px;">
-                                <div style="border:solid 1px #ebebeb;border-radius:20px;padding:10px;">
-                                    <p class="caps">ფონდშემქნელების ტიპები</p>
-                                    <div class="form-check ">
-                                        @if($mode === 'create')
-                                        <input class="form-check-input" type="checkbox" name="create_types">
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="create_types" {{
-                                            $role->hasPermissionTo('create_types') ? 'checked': '' }}>
-                                        @endif
 
-                                        <label class="form-check-label">დამატება</label>
-                                    </div>
-                                    <div class="form-check ">
-                                        @if($mode === 'create')
-                                        <input class="form-check-input" type="checkbox" name="edit_types">
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="edit_types" {{
-                                            $role->hasPermissionTo('edit_types') ? 'checked': '' }}>
-                                        @endif
-                                        <label class="form-check-label">რედაქტირება</label>
-                                    </div>
-                                    <div class="form-check ">
-                                        @if($mode === 'create')
-                                        <input class="form-check-input" type="checkbox" name="delete_types">
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="delete_types" {{
-                                            $role->hasPermissionTo('delete_types') ? 'checked' : '' }}>
-                                        @endif
-                                        <label class="form-check-label">წაშლა</label>
-                                    </div>
-                                    <div class="form-check ">
-                                        @if($mode === 'create')
-                                        <input class="form-check-input" type="checkbox" name="view_types">
-                                        @else
-                                        <input class="form-check-input" type="checkbox" name="view_types" {{
-                                            $role->hasPermissionTo('view_types') ? 'checked' : '' }}>
-                                        @endif
-                                        <label class="form-check-label">ნახვა</label>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-3" style="margin-bottom:10px;">
                                 <div style="border:solid 1px #ebebeb;border-radius:20px;padding:10px;">

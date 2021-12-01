@@ -33,6 +33,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">სახელი</th>
                                     <th scope="col">ელფოსტა</th>
+                                    <th scope="col">როლი</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -41,6 +42,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">სახელი</th>
                                     <th scope="col">ელფოსტა</th>
+                                    <th scope="col">როლი</th>
                                 </tr>
                             </tfoot>
 
@@ -51,6 +53,7 @@
                                     <th>{{$item->id}}</th>
                                     <th>{{$item->name}}</th>
                                     <th>{{$item->email}}</th>
+                                    <th>{{$item->getRoleNames()}}</th>
                                     <td>
                                         <a href="{{route('admins.edit', ['admin'=>$item->id])}}"
                                             class="btn btn-primary btn-xs" title='რედაქტირება'>

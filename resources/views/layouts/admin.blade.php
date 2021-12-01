@@ -163,6 +163,7 @@
                         </li>
                         @endif
 
+                        @if(auth()->guard('admin')->user()->can('view_admins'))
                         <li class="nav-item dropdown">
                             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link dropdown-toggle rolesL administrationL">
@@ -186,6 +187,7 @@
                                 @endif
                             </ul>
                         </li>
+                        @endif
 
                         <li class="nav-item ">
                             <a href="{{asset('Instruction.docx')}}" class="nav-link instructionL">
