@@ -20,6 +20,18 @@ Also platform has to have composer installed. The database name and all required
 
 After all requirements are met, there are several command that has to be executed to run the project:
 
+`composer install`
+
+_This command will install all composer required libraries for system to work._
+
+`php artisan key:generate`
+
+_This command will create key for project._
+
+`php artisan storage:link`
+
+_This command will create link from storage to public path._
+
 `php artian migrate:fresh --seed`
 
 _This command will migrate all the tables, and store them to database, also it will run the seeders._
