@@ -48,7 +48,7 @@
                                         </a>
                                     </th>
                                     <th scope="row">
-                                        <a href="{{ route('creators.show', ['creator' => $item->creator->id]) }}">
+                                        <a href="{{ route('archives.show', ['archive' => $item->archive->id]) }}">
                                             {{$item->archive->name}}
                                         </a>
                                     </th>
