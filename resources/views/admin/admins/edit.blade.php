@@ -55,15 +55,6 @@
                                         <label>როლი</label>
                                         <select class="form-control" name="role_id" required>
                                             <option selected disabled>აირჩიეთ ... </option>
-                                            @if(Auth::guard('admin')->user()->type() == 1)
-                                            <option value="0">ადმინისტრატორი</option>
-                                            <option value="1" selected>მოდერატორი</option>
-                                            @else
-                                            <option value="0" selected>ადმინისტრატორი</option>
-                                            <option value="1">მოდერატორი</option>
-                                            @endif
-
-
                                             @foreach($roles as $item)
                                             @if(Auth::guard('admin')->user()->hasRole($item->name))
                                             <option value="{{ $item->id }}" selected>{{ $item->name }}</option>

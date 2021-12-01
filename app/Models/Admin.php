@@ -12,8 +12,11 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
+
+
     protected $guard = 'admin';
-    protected $redirectTo = '/';
+    protected $redirectTo = '/login';
+
 
     protected $fillable = [
         'name',
@@ -21,12 +24,21 @@ class Admin extends Authenticatable
         'password',
         'is_admin'
     ];
-
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
