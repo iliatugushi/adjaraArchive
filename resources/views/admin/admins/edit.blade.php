@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-sm caps">დამატება</button>
+                        <button type="submit" class="btn btn-primary btn-sm caps">რედაქტირება</button>
                         @can('delete admins')
                         <a href="{{ route('admins.destroy', [$admin->id]) }}"
                             class="btn btn-danger float-right btn-xs caps">წაშლა</a>
