@@ -14,6 +14,7 @@
             <form method="post" action="{{ route('admins.update', ['admin' => $admin->id]) }}"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
+                <input type="hidden" name="_method" value="put">
                 <div class="card card-white ">
                     <div class="card-header">
                         <h3 class="card-title caps">

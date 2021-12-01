@@ -81,9 +81,6 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->guard('admin')->user()->hasPermissionTo('delete_roles')) {
-            return 'You Dont Have Permission';
-        }
         $role = Role::find($id);
         // Clear old permissions for this role
         $permissions = Permission::all();
