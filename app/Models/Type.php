@@ -17,9 +17,4 @@ class Type extends Model implements HasMedia
     use HasMediaTrait;
 
     protected $guarded = ['id'];
-
-    public function creators()
-    {
-        return $this->hasMany(Creator::class);
-    }
 }

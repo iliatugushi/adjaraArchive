@@ -19,22 +19,14 @@ use App\Http\Controllers\Admin\FileController;
 Route::get('/', [LoginController::class, 'adminLoginShow'])->name('admin.login');
 Route::post('/post-login',  [LoginController::class, 'adminLogin'])->name('admin.login.submit');
 
-Route::get('/migrate', [HomeController::class, 'migrate'])->name('migrate');
-Route::get('/clear', [HomeController::class, 'clear'])->name('clear');
-
 Route::group(['middleware' => ['auth:admin',]], function () {
     Route::resource('admins', AdminController::class);
 
     Route::get('/dashboard',  [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    Route::get('/tree',  [AdminController::class, 'tree'])->name('tree');
     Route::post('/element-details',  [AdminController::class, 'elementDetails'])->name('element.details');
     Route::post('/tree-expand',  [AdminController::class, 'treeExpand'])->name('tree.expand');
 
-    Route::resource('users', UserController::class);
-    Route::resource('operators', OperatorController::class);
-
-    // NEW
     Route::resource('archives', ArchiveController::class);
     Route::resource('types', TypeController::class);
     Route::resource('creators', CreatorController::class);

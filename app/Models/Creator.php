@@ -19,15 +19,7 @@ class Creator extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    public function getMegzuriAttribute()
-    {
-        if (!empty($this->getMedia('megzurebi')->first())) {
-            $picture = $this->getMedia('megzurebi')->last()->getUrl();
-        } else {
-            $picture = null;
-        }
-        return $picture;
-    }
+
     public function getNameAttribute()
     {
         $column = "authorised_form_of_name";
@@ -39,10 +31,7 @@ class Creator extends Model implements HasMedia
     {
         return $this->belongsTo(Type::class);
     }
-    public function archive()
-    {
-        return $this->belongsTo(Archive::class);
-    }
+
     public function fondsTree()
     {
         return $this->hasMany(Fond::class);

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\ActionController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -18,7 +17,11 @@ use App\Models\File;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class AdminController extends ActionController
+
+use App\Http\Controllers\Controller;
+
+
+class AdminController extends Controller
 {
     public function index()
     {
@@ -208,26 +211,5 @@ class AdminController extends ActionController
             'element' => $model,
             'elementID' => $modelID
         ]);
-    }
-
-    public function search()
-    {
-        return view('admin.search');
-    }
-
-    public function searchResults(Request $request)
-    {
-        dd($request);
-        return view('admin.search');
-    }
-
-    public function viewer()
-    {
-        $imgs = [];
-        for ($i = 1; $i < 10; $i++) {
-            $imgs[] = asset('images/news-' . $i . '.jpg');
-        }
-
-        return view('admin.sakmes.viewer', ['imgs' => $imgs]);
     }
 }

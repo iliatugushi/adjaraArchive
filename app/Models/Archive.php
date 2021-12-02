@@ -36,17 +36,9 @@ class Archive extends Model implements HasMedia
         $column = "authorised_form_of_name";
         return $this->{$column};
     }
-    public function creators()
-    {
-        return $this->hasMany(Creator::class);
-    }
+
     public function fonds()
     {
         return $this->hasMany(Fond::class);
-    }
-
-    public function creatorsTree()
-    {
-        return $this->hasMany(Creator::class);
     }
 }

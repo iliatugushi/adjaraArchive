@@ -11,10 +11,4 @@ class HomeController extends Controller
         Artisan::call('optimize:clear');
         return "Cleared";
     }
-
-    public function migrate()
-    {
-        Artisan::call('migrate:fresh --seed');
-        return "Migrated";
-    }
 }
