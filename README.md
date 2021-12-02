@@ -376,12 +376,14 @@ Route::get('/', [LoginController::class, 'adminLoginShow'])->name('admin.login')
 Route::post('/post-login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
 
 ეს route ები არის გაჯგუფებული და მუშაობს მხოლოდ ავტორიზაციის გავლის შემდეგ. ყველგან სადაც შეგვხვდება resource route ებში ეს არის გაერთიანებული შემდეგი route ები:
-create - შექმნა
-edit - რედაქტიების გვერდის გამოძახება
-update - რედაქტირების ფუნქციონალი
-store - ახალი მონაცემის ფუნქციონალი
-destroy - მონაცემის წაშლა
-show - მონაცემის დეტალური ინფორმაცია
+
+-   create - შექმნა
+-   edit - რედაქტიების გვერდის გამოძახება
+-   update - რედაქტირების ფუნქციონალი
+-   store - ახალი მონაცემის ფუნქციონალი
+-   destroy - მონაცემის წაშლა
+-   show - მონაცემის დეტალური ინფორმაცია
+
 Route::group(['middleware' => ['auth:admin',]], function () {
 
     ადმინისტრატორის Resource (create, edit, update, store, destory, show)
