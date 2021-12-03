@@ -608,6 +608,11 @@
                     $('#maxImages').attr('maxImages', data.total);
 
                 }
+                else{
+                    if(data.message === 'No More Files'){
+                        alert('No More Files');
+                    }
+                }
                 $(".loading").fadeOut('fast', function() {
                     $(this).remove();
                 });

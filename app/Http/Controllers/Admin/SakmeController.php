@@ -82,7 +82,7 @@ class SakmeController extends Controller
 
     public function viewFiles(Sakme $sakme)
     {
-        $identifikator = $sakme->identifikator;
+        $identifikator = $sakme->reference_code;
 
         $current_page = 1;
         $per_page = 10;
@@ -95,9 +95,11 @@ class SakmeController extends Controller
 
     public function viewFilesPerPage(Request $request)
     {
-        $identifikator = $request->identifikator;
+        $identifikator = $request->sakme_id;
         $current_page = $request->current_page;
         $per_page = $request->per_page;
+
+
 
         $response = Http::post(env('FILE_SERVER') . '/api/get-sakme-files', [
             'identifikator' => $identifikator,
