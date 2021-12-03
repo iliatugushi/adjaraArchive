@@ -83,7 +83,6 @@ class SakmeController extends Controller
     public function viewFiles(Sakme $sakme)
     {
         $identifikator = $sakme->identifikator;
-        $identifikator = 'sak_1';
 
         $current_page = 1;
         $per_page = 10;
@@ -97,9 +96,6 @@ class SakmeController extends Controller
     public function viewFilesPerPage(Request $request)
     {
         $identifikator = $request->identifikator;
-        $identifikator = 'sak_1';
-
-
         $current_page = $request->current_page;
         $per_page = $request->per_page;
 
