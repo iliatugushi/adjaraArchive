@@ -42,6 +42,12 @@ _This command will migrate all the tables, and store them to database, also it w
 
 _This command will clear all the cache._
 
+
+# Configuration 
+Configuration files are located in .env file and also in in /config Folder
+---
+
+
 # System Structure & Folders
 
 As system is made on Laravel framework, we have mvc structure.
