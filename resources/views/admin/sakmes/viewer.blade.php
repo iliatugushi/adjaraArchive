@@ -5,17 +5,7 @@
 @section('css')
 <style>
     /* LEFT */
-    #leftSide::-webkit-scrollbar {
-        width: 10px;
-    }
 
-    #leftSide::-webkit-scrollbar-track {
-        background-color: #ebebeb;
-    }
-
-    #leftSide::-webkit-scrollbar-thumb {
-        background-color: #bebebe;
-    }
 
     #leftSide {
         background-color: white;
@@ -130,6 +120,15 @@
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
     }
+
+    .scrollpane {
+        height: 600px;
+        overflow: auto;
+    }
+
+    .loading {
+        color: black;
+    }
 </style>
 
 @endsection
@@ -137,13 +136,14 @@
 
 
 
-    <a href="javascript:void(0)" id="leftOpenClose" state="open"><span id="pages">1</span> /{{ count($imgs) }}</a>
-    <div id="maxImages" style="display:none;" maxImages="{{ count($imgs) }}"></div>
+    <a href="javascript:void(0)" id="leftOpenClose" state="open"><span id="pages">1</span> /<span
+            class="totalCounter"></span></a>
+    <div id="maxImages" style="display:none;" maxImages=""></div>
     <div id="leftSide">
 
         <div class="col-12 text-center mb-2 pt-3 row">
             <div class="col-4 text-left" style="padding:0px;">
-                <input type="text" value="1" id="indexID"> / {{ count($imgs) }}
+                <input type="text" value="1" id="indexID"> / <span class="totalCounter"></span>
             </div>
             <div class="col-4 text-center" style="padding:0px;">
                 <button class="btn btn-default btn-sm  caps" data-toggle="collapse" data-target="#filtersBox">
@@ -220,16 +220,9 @@
                 </div>
             </div>
         </div>
-        <div id="thumbView" class=" text-center pt-3 pb-3">
-            <ul id="thumbs">
-                @foreach($imgs as $key => $value)
-                <li class="img-element" id="thumb-{{ $key }}" index="{{ $key }}">
-                    <img src="{{ $value }}" />
-                </li>
-                @endforeach
-            </ul>
 
-
+        <div id="thumbView" class="scrollpane text-center pt-3 pb-3">
+            <ul id="thumbs"> </ul>
         </div>
     </div>
 
@@ -293,14 +286,19 @@
 @section('js')
 
 <script>
-    $(document).ready(function() {
-        activateThumb(0);
-    });
     let mode = 'single';
     let currentIndex = 0;
     var rotation = 0;
     var zoom = 1;
-    let maxIndex = $('#maxImages').attr('maxImages');
+
+    var current_page = {!! $current_page !!};
+    let per_page = {!! $per_page !!};
+    let sakme_id = {!! json_encode($sakme_id) !!}
+
+    $(document).ready(function() {
+        loadResults(sakme_id, current_page, per_page);
+        // activateThumb(0);
+    });
 
     // left side open close
     $('#leftOpenClose').click(function(){
@@ -322,7 +320,7 @@
     });
 
     // Thumb Click
-    $(".img-element").click(function(){
+    $(document).on("click", '.img-element', function(event) {
         activateThumb($(this).attr('index'));
         // Change Index
         $("#indexID").val(parseInt($(this).attr('index')) + 1);
@@ -345,8 +343,8 @@
     });
 
     // Index Change
-    $("#indexID").on("keyup", function() {
-        if(parseInt(this.value) < maxIndex){
+    $(document).on("keyup", '#indexID', function(event) {
+       if(parseInt(this.value) < $('#maxImages').attr('maxImages')){
             if ($.isNumeric(this.value)) {
                 let newIndex = this.value - 1;
                 activateThumb(newIndex);
@@ -357,22 +355,23 @@
         }
     });
 
+
     // Next Prev Button
     $('.nextPrev').click(function(){
         let newIndex = 0;
         if($(this).attr('method') === 'next'){
             newIndex = parseInt($("#indexID").val()) + 1;
-            if(newIndex > maxIndex){
+            if(newIndex > $('#maxImages').attr('maxImages')){
                 newIndex = 1;
             }
         }
         else{
             newIndex = parseInt($("#indexID").val()) - 1;
             if(newIndex < 1){
-                newIndex = 9;
+                newIndex = $('#maxImages').attr('maxImages');
             }
         }
-
+        console.log("New Index: " + newIndex);
         $("#indexID").val(newIndex);
         activateThumb(newIndex -1);
     });
@@ -430,6 +429,7 @@
     });
 
     function activateThumb(index){
+
         var html = '';
         $('.img-element').removeClass('active');
         if(mode === 'single'){
@@ -534,39 +534,95 @@
     dragElement(document.getElementById("content_viewer"));
     function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-        /* otherwise, move the DIV from anywhere inside the DIV:*/
         elmnt.onmousedown = dragMouseDown;
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
 
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
     }
 
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+
+    function updateCurrentPage(page){
+        current_page = page;
     }
 
-    function closeDragElement() {
-        /* stop moving when mouse button is released:*/
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-    }
+    // Load Thumbs
+    function loadResults(sakme_id, current_page, per_page) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr("content")
+            }
+        });
+        $.ajax({
+            url: "/sakmes/view-files-per-page",
+            type: "post",
+            async: "false",
+            data: {
+                delay: 3,
+                sakme_id: sakme_id,
+                current_page: current_page,
+                per_page: per_page
+            },
+            beforeSend: function(xhr) {
+                $("#thumbs").after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
+            },
+            success: function(data) {
+                if(data.result === 'success'){
+                    console.log(data);
+                    // Append Data To DOM
+                    $.each(data.data, function() {
+                        $('#thumbs').append(
+                                '<li class="img-element" id="thumb-'+this.index+'" index="'+this.index+'" elID="'+this.id+'">'+
+                                    '<img src="data:image/'+this.mime_type + ';base64,'+ this.file_base_64 +'" />'+
+                                '</li>'
+                            );
+                    });
+                    updateCurrentPage(current_page + 1);
+                    $('.totalCounter').html(data.total);
+                    $('#maxImages').attr('maxImages', data.total);
+
+                }
+                $(".loading").fadeOut('fast', function() {
+                    $(this).remove();
+                });
+
+            }
+        });
+    };
+
+    // Load More Content AJAX
+    $('.scrollpane').on('scroll', function() {
+        let list = $(this).get(0);
+        if(list.scrollTop + list.clientHeight >= list.scrollHeight) {
+            loadResults(sakme_id, current_page, per_page);
+        }
+    });
+
 </script>
 @endsection

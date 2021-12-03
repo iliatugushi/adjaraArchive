@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 use App\Models\Sakme;
 use App\Models\Anaweri;
@@ -81,10 +82,64 @@ class SakmeController extends Controller
 
     public function viewFiles(Sakme $sakme)
     {
-        $imgs = [];
-        for ($i = 1; $i < 10; $i++) {
-            $imgs[] = asset('images/news-' . $i . '.jpg');
+        $identifikator = $sakme->identifikator;
+        $identifikator = 'sak_1';
+
+        $current_page = 1;
+        $per_page = 10;
+        return view('admin.sakmes.viewer', [
+            'current_page' => $current_page,
+            'per_page' => $per_page,
+            'sakme_id' => $identifikator
+        ]);
+    }
+
+    public function viewFilesPerPage(Request $request)
+    {
+        $identifikator = $request->identifikator;
+        $identifikator = 'sak_1';
+
+
+        $current_page = $request->current_page;
+        $per_page = $request->per_page;
+
+        $response = Http::post(env('FILE_SERVER') . '/api/get-sakme-files', [
+            'identifikator' => $identifikator,
+            'current_page' => $current_page,
+            'per_page' => $per_page
+        ]);
+
+        if ($response->ok() && $response->json()['result']) {
+            $data = $response->json();
+            return response()->json([
+                'result' => 'success',
+                'data' => $data['data'],
+                'current_page' => $current_page,
+                'per_page' => $per_page,
+                'total' => $data['total']
+            ]);
+        } else {
+            return response()->json([
+                'result' => 'error',
+            ]);
         }
-        return view('admin.sakmes.viewer', ['imgs' => $imgs]);
+    }
+
+    public function getFile()
+    {
+        $response = Http::post(env('FILE_SERVER') . '/api/get-file', [
+            'identifikator' => 'file_1',
+        ]);
+        if (!$response->ok()) {
+            return response()->json([
+                'result' => 'error',
+                'message' => 'Not Found'
+            ]);
+        }
+        $data = $response->json();
+        return response()->json([
+            'result' => 'success',
+            'data' => $data
+        ]);
     }
 }
