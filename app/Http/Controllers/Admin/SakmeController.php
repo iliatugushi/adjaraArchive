@@ -108,14 +108,30 @@ class SakmeController extends Controller
         ]);
 
         if ($response->ok() && $response->json()['result']) {
+
             $data = $response->json();
-            return response()->json([
-                'result' => 'success',
-                'data' => $data['data'],
-                'current_page' => $current_page,
-                'per_page' => $per_page,
-                'total' => $data['total']
-            ]);
+
+            if ($data['result'] === 'success') {
+                return response()->json([
+                    'result' => 'success',
+                    'data' => $data['data'],
+                    'current_page' => $current_page,
+                    'per_page' => $per_page,
+                    'total' => $data['total']
+                ]);
+            }
+            if ($data['result'] === 'error') {
+                if (isset($data['message'])  && $data['message'] == "No More Files") {
+                    return response()->json([
+                        'result' => 'error',
+                        'message' => 'No More Files',
+                    ]);
+                }
+                return response()->json([
+                    'result' => 'error',
+                    'message' => 'Something Went Wrong',
+                ]);
+            }
         } else {
             return response()->json([
                 'result' => 'error',

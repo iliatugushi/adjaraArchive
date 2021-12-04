@@ -126,6 +126,11 @@
         overflow: auto;
     }
 
+    .scrollpaneNoMore {
+        height: 600px;
+        overflow: auto;
+    }
+
     .loading {
         color: black;
     }
@@ -371,7 +376,6 @@
                 newIndex = $('#maxImages').attr('maxImages');
             }
         }
-        console.log("New Index: " + newIndex);
         $("#indexID").val(newIndex);
         activateThumb(newIndex -1);
     });
@@ -593,8 +597,8 @@
                 $("#thumbs").after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
             },
             success: function(data) {
+                console.log(data);
                 if(data.result === 'success'){
-                    console.log(data);
                     // Append Data To DOM
                     $.each(data.data, function() {
                         $('#thumbs').append(
@@ -609,8 +613,8 @@
 
                 }
                 else{
-                    if(data.message === 'No More Files'){
-                        alert('No More Files');
+                    if(data.message == 'No More Files'){
+                        $('.scrollpane').removeClass('scrollpane');
                     }
                 }
                 $(".loading").fadeOut('fast', function() {
