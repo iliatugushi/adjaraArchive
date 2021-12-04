@@ -111,12 +111,6 @@
                                     <div class="tab-pane fade show active" id="custom-tabs-three-tab1" role="tabpanel"
                                         aria-labelledby="custom-tabs-three-tab1-tab">
 
-                                        <div class=" form-group">
-                                            <label>ფაილების მისამართი ფოლდერები</label>
-                                            <textarea class="form-control" name="files_path"
-                                                required>{{ $mode === 'create' ? '' : $sakme->files_path }}</textarea>
-                                        </div>
-
                                         <div class="form-group">
                                             <input type="hidden" name="anaweri_id" value="{{ $anaweri->id }}" />
                                             <label>{{ __('reference_code') }} *</label>
