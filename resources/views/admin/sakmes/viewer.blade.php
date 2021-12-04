@@ -145,7 +145,6 @@
             class="totalCounter"></span></a>
     <div id="maxImages" style="display:none;" maxImages=""></div>
     <div id="leftSide">
-
         <div class="col-12 text-center mb-2 pt-3 row">
             <div class="col-4 text-left" style="padding:0px;">
                 <input type="text" value="1" id="indexID"> / <span class="totalCounter"></span>
@@ -168,8 +167,6 @@
 
                 </div>
             </div>
-
-
             <div class="col-12 collapse pt-3 pb-3" id="filtersBox">
                 <div class="sliders">
                     <form id="imageEditor">
@@ -235,7 +232,8 @@
         <div id="content_viewer" class="singleView"> </div>
 
         <div id="header">
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default"
+                id="infoButton" url="">
                 <i class="fas fa-info"></i>
             </button>
             <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
@@ -268,22 +266,6 @@
         </div>
     </div>
 
-
-
-    <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">აღწერა</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="instructionBody">
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -329,8 +311,15 @@
         activateThumb($(this).attr('index'));
         // Change Index
         $("#indexID").val(parseInt($(this).attr('index')) + 1);
+
+        // Change URL DEPENDING ON THUMB
+        $('#infoButton').attr('url', 'files/details/' + $(this).attr('elID'));
     });
 
+    // Open Details
+    $(document).on("click", '#infoButton', function(event) {
+        window.open('/' + $(this).attr('url'), '_blank');
+    });
 
     // Change Mode
     $(".thumbSelector").click(function(){

@@ -79,4 +79,13 @@ class FileController extends Controller
         }
         return back()->withErrors(['დაფიქსირდა შეცდომა']);
     }
+
+    public function details($identifikator)
+    {
+        $file = File::where('reference_code', $identifikator)->first();
+        if (!$file) {
+            dd('File Not Found');
+        }
+        return view('admin.files.show', ['file' => $file]);
+    }
 }

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth:admin',]], function () {
     Route::post('sakmes/view-files-per-page', [SakmeController::class, 'viewFilesPerPage'])->name('sakmes.viewFilesPerPage');
 
 
+    Route::get('files/details/{identifikator}', [FileController::class, 'details'])->name('files.details');
     Route::resource('files', FileController::class)->except(['create', 'index']);
     Route::get('files/index/{sakme}', [FileController::class, 'index'])->name('files.index');
     Route::get('files/create/{sakme}', [FileController::class, 'create'])->name('files.create');
