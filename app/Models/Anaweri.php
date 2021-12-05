@@ -34,4 +34,10 @@ class Anaweri extends Model implements HasMedia
     {
         return $this->hasMany(Sakme::class);
     }
+
+    public function getIdentifikatorCleanAttribute()
+    {
+        $identifikator = $this->fond->identifikatorClean . '_' . $this->reference_code;
+        return $identifikator;
+    }
 }

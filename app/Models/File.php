@@ -29,4 +29,10 @@ class File extends Model implements HasMedia
         $column = "title";
         return $this->{$column};
     }
+
+    public function getIdentifikatorCleanAttribute()
+    {
+        $identifikator = $this->sakme->identifikatorClean . '_' . $this->reference_code;
+        return $identifikator;
+    }
 }

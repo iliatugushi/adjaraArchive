@@ -46,7 +46,7 @@
                             <tbody>
                                 @foreach($files as $item)
                                 <tr>
-                                    <th scope="row" style="width:200px;">{{$item->reference_code}}</th>
+                                    <th scope="row" style="width:200px;">{{$item->identifikatorClean}}</th>
                                     <th scope="row">{{$item->title}}</th>
                                     <th scope="row">
                                         <a href="{{ route('sakmes.show', ['sakme' => $item->sakme->id]) }}">

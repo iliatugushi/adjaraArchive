@@ -45,6 +45,7 @@ class AnaweriController extends Controller
 
     public function edit(Anaweri $anaweri)
     {
+
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_anaweris')) {
             return 'You Dont Have Permission';
         }

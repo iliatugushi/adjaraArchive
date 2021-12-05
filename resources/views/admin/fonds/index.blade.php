@@ -40,7 +40,7 @@
                             <tbody>
                                 @foreach($fonds as $item)
                                 <tr>
-                                    <th scope="row" style="width:200px;">{{$item->reference_code}}</th>
+                                    <th scope="row" style="width:200px;">{{$item->IdentifikatorClean}}</th>
                                     <th scope="row">{{$item->title}}</th>
                                     <th scope="row">
                                         <a href="{{ route('creators.show', ['creator' => $item->creator->id]) }}">

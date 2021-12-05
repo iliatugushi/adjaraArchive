@@ -37,4 +37,10 @@ class Sakme extends Model implements HasMedia
     {
         return $this->hasMany(File::class);
     }
+
+    public function getIdentifikatorCleanAttribute()
+    {
+        $identifikator = $this->anaweri->identifikatorClean . '_' . $this->reference_code;
+        return $identifikator;
+    }
 }

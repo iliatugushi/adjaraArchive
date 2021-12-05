@@ -43,4 +43,10 @@ class Fond extends Model implements HasMedia
     {
         return $this->hasMany(Anaweri::class);
     }
+
+    public function getIdentifikatorCleanAttribute()
+    {
+        $identifikator = "GE_" . $this->archive->IdentifikatorClean . '_' . $this->creator->identifier . '_' . $this->reference_code;
+        return $identifikator;
+    }
 }

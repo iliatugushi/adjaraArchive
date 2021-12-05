@@ -54,6 +54,8 @@ class FondController extends Controller
 
     public function edit(Fond $fond)
     {
+
+
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_fonds')) {
             return 'You Dont Have Permission';
         }

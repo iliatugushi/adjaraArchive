@@ -50,8 +50,7 @@ class FileController extends Controller
             return 'You Dont Have Permission';
         }
         $mode = 'edit';
-        $sakmes = Sakme::all();
-        return view('admin.files.create', ['file' => $file, 'mode' => $mode, 'sakmes' => $sakmes, 'sakme' => $file->sakme->id]);
+        return view('admin.files.create', ['file' => $file, 'mode' => $mode, 'sakme' => $file->sakme]);
     }
 
     public function show(File $file)

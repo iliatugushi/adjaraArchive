@@ -47,6 +47,7 @@ class SakmeController extends Controller
 
     public function edit(Sakme $sakme)
     {
+
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_sakmes')) {
             return 'You Dont Have Permission';
         }

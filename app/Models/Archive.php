@@ -41,4 +41,10 @@ class Archive extends Model implements HasMedia
     {
         return $this->hasMany(Fond::class);
     }
+
+    public function getIdentifikatorCleanAttribute()
+    {
+        $identifikator = $this->identifier;
+        return $identifikator;
+    }
 }
