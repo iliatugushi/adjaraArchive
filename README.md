@@ -42,11 +42,11 @@ _This command will migrate all the tables, and store them to database, also it w
 
 _This command will clear all the cache._
 
+# Configuration
 
-# Configuration 
-Configuration files are located in .env file and also in in /config Folder
----
+## Configuration files are located in .env file and also in in /config Folder
 
+## In .env file set FILE_SERVER to file server url
 
 # System Structure & Folders
 
