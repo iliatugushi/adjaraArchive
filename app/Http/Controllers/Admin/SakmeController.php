@@ -83,14 +83,14 @@ class SakmeController extends Controller
 
     public function viewFiles(Sakme $sakme)
     {
-        $identifikator = $sakme->reference_code;
+        $identifikator = $sakme->identifikatorClean;
 
         $current_page = 1;
         $per_page = 10;
         return view('admin.sakmes.viewer', [
             'current_page' => $current_page,
             'per_page' => $per_page,
-            'sakme_id' => $identifikator
+            'sakme_id' => $identifikator,
         ]);
     }
 

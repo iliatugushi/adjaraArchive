@@ -39,7 +39,7 @@
 
             @if(!empty($fond->reference_code))
             <b class="col-sm-5 caps text-right showTitle">{{ __('reference_code') }}</b>
-            <p class="col-sm-7 showValue"> {{ $fond->reference_code }} </p> @endif
+            <p class="col-sm-7 showValue"> {{ $fond->IdentifikatorClean }} </p> @endif
 
             @if(!empty($fond->title))
             <b class="col-sm-5 caps text-right showTitle">{{ __('title') }}</b>

@@ -37,7 +37,7 @@
                 </a>
             </p>
             <b class="col-sm-5 caps text-right showTitle">{{ __('reference_code') }}</b>
-            <p class="col-sm-7 showValue"> {{ $sakme->reference_code }} </p>
+            <p class="col-sm-7 showValue"> {{ $sakme->IdentifikatorClean }} </p>
 
             <b class="col-sm-5 caps text-right showTitle">{{ __('title') }}</b>
             <p class="col-sm-7 showValue"> {{ $sakme->title}} </p>

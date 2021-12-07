@@ -312,8 +312,10 @@
         // Change Index
         $("#indexID").val(parseInt($(this).attr('index')) + 1);
 
+        let urlToGo = 'files/details/' + $(this).attr('elID');
+
         // Change URL DEPENDING ON THUMB
-        $('#infoButton').attr('url', 'files/details/' + $(this).attr('elID'));
+        $('#infoButton').attr('url', urlToGo);
     });
 
     // Open Details
@@ -586,7 +588,6 @@
                 $("#thumbs").after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
             },
             success: function(data) {
-                console.log(data);
                 if(data.result === 'success'){
                     // Append Data To DOM
                     $.each(data.data, function() {

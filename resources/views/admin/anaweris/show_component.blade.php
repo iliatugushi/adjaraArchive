@@ -32,7 +32,7 @@
                 </a>
             </p>
             <b class="col-sm-5 caps text-right showTitle">{{ __('reference_code') }}</b>
-            <p class="col-sm-7 showValue"> {{ $anaweri->reference_code }} </p>
+            <p class="col-sm-7 showValue"> {{ $anaweri->IdentifikatorClean }} </p>
 
             <b class="col-sm-5 caps text-right showTitle">{{ __('title') }}</b>
             <p class="col-sm-7 showValue"> {{ $anaweri->title}} </p>
