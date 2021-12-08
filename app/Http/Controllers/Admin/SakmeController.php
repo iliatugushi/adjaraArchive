@@ -112,6 +112,11 @@ class SakmeController extends Controller
 
             $data = $response->json();
 
+            return response()->json([
+                'result' => 'error',
+                'message' => $data,
+            ]);
+
             if ($data['result'] === 'success') {
                 return response()->json([
                     'result' => 'success',
