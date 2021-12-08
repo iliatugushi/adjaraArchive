@@ -12,7 +12,7 @@ Application is created using framweork Laravel, to run this app following requir
 -   PDO PHP Extension
 -   Tokenizer PHP Extension
 -   XML PHP Extension
--   MySql
+-   MySql >= 5.7
 
 Also platform has to have composer installed. The database name and all required information is located in .env file.
 
@@ -20,9 +20,11 @@ Also platform has to have composer installed. The database name and all required
 
 After all requirements are met, there are several command that has to be executed to run the project:
 
-`composer install`
+In .env file you have to indicate database information:
 
-_This command will install all composer required libraries for system to work._
+-   DB_DATABASE=
+-   DB_USERNAME=
+-   DB_PASSWORD=
 
 `php artisan key:generate`
 
@@ -41,6 +43,14 @@ _This command will migrate all the tables, and store them to database, also it w
 `php artisan optimize:clear`
 
 _This command will clear all the cache._
+
+`composer install`
+
+_This command will install all composer required libraries for system to work. This command is not needed to run now, because all the libraries are already installed in github folders._
+
+## Logging
+
+All logs are stored in storage/logs folder
 
 # Configuration
 
