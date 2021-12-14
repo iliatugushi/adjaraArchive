@@ -136,6 +136,17 @@
             font-size: 14px;
             font-weight: bold;
         }
+
+        .btn-primary {
+            background-color: #bd8700;
+            border-color: #bd8700;
+        }
+
+        .btn-primary:focus,
+        .btn-primary:hover {
+            background-color: #e0a306;
+            border-color: #e0a306;
+        }
     </style>
     @yield('css')
 
