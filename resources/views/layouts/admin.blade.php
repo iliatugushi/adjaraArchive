@@ -110,6 +110,32 @@
         .active {
             display: block;
         }
+
+        .navbar-brand {
+            padding: 0px !important;
+        }
+
+        .navbar-brand img {
+            float: left;
+            margin-left: 10px !important;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .navbar-brand span {
+            float: left;
+            font-size: 40px;
+            padding: 0px !important;
+            margin: 0px !important;
+
+        }
+
+        .brand-image {}
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: bold;
+        }
     </style>
     @yield('css')
 
@@ -118,11 +144,13 @@
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white navbar-primary">
+        <nav class="main-header navbar navbar-expand-md navbar-dark  navbar-primary"
+            style="background-color:#bd8700;padding:0px !important;margin:0px !important;">
             <div class="container-fluid">
                 <a href="{{route('admin.dashboard')}}" class="navbar-brand">
-                    <img src="{{ asset('logo.jpg') }}" class="brand-image ">
-                    <span class="brand-text font-weight-light caps">აჭარის არქივი</span>
+                    <img src="{{ asset('images/logo_view_header.png') }}" title="აჭარის საარქივო სამმართველო"
+                        style="height:60px;">
+                    <span class="brand-text caps">AIS</span>
                 </a>
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
                     data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
@@ -190,7 +218,7 @@
                         @endif
 
                         <li class="nav-item ">
-                            <a href="{{asset('Instruction.docx')}}" class="nav-link instructionL">
+                            <a href="{{asset('Instruction.pdf')}}" target="_blank" class="nav-link instructionL">
                                 <p> ინსტრუქცია </p>
                             </a>
                         </li>
@@ -201,6 +229,9 @@
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ route('logout') }}" title="გამოსვლა">
+                            <span style="padding-right:5px;" class="caps">
+                                {{Auth::guard('admin')->user()->name}}
+                            </span>
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </li>

@@ -17,7 +17,7 @@ class AnaweriController extends Controller
     public function index(Fond $fond)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_anaweris')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $anaweris = Anaweri::where('fond_id', $fond->id)->get();
         return view('admin.anaweris.index', ['anaweris' => $anaweris, 'fond' => $fond]);
@@ -27,7 +27,7 @@ class AnaweriController extends Controller
     public function create(Fond $fond)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_anaweris')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'create';
         return view('admin.anaweris.create', ['mode' => $mode, 'fond' => $fond]);
@@ -47,7 +47,7 @@ class AnaweriController extends Controller
     {
 
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_anaweris')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         return view('admin.anaweris.create', ['anaweri' => $anaweri, 'mode' => $mode, 'fond' => $anaweri->fond]);
@@ -70,7 +70,7 @@ class AnaweriController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_anaweris')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Anaweri::find($id);
         if ($findItem->delete()) {

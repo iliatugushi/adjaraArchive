@@ -18,7 +18,7 @@ class FondController extends Controller
     public function index()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_fonds')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $fonds = Fond::all();
         return view('admin.fonds.index', ['fonds' => $fonds]);
@@ -28,7 +28,7 @@ class FondController extends Controller
     public function create()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_fonds')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $creators = Creator::all();
         $archives = Archive::all();
@@ -57,7 +57,7 @@ class FondController extends Controller
 
 
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_fonds')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         $creators = Creator::all();
@@ -90,7 +90,7 @@ class FondController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_fonds')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Fond::find($id);
         if ($findItem->delete()) {

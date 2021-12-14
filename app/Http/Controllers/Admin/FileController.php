@@ -17,7 +17,7 @@ class FileController extends Controller
     public function index(Sakme $sakme)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_files')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $files = File::where('sakme_id', $sakme->id)->get();
         return view('admin.files.index', ['files' => $files, 'sakme' => $sakme]);
@@ -27,7 +27,7 @@ class FileController extends Controller
     public function create(Sakme $sakme)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_files')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'create';
         return view('admin.files.create', ['mode' => $mode, 'sakme' => $sakme]);
@@ -47,7 +47,7 @@ class FileController extends Controller
     public function edit(File $file)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_files')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         return view('admin.files.create', ['file' => $file, 'mode' => $mode, 'sakme' => $file->sakme]);
@@ -70,7 +70,7 @@ class FileController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_files')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = File::find($id);
         if ($findItem->delete()) {

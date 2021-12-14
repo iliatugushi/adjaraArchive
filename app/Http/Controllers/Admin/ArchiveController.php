@@ -21,7 +21,7 @@ class ArchiveController extends Controller
     public function index()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_archives')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
 
         $archives = Archive::all();
@@ -32,7 +32,7 @@ class ArchiveController extends Controller
     public function create()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_archives')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
 
         $mode = 'create';
@@ -58,7 +58,7 @@ class ArchiveController extends Controller
     public function edit(Archive $archive)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_archives')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         return view('admin.archives.create', ['archive' => $archive, 'mode' => $mode]);
@@ -89,7 +89,7 @@ class ArchiveController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_archives')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Archive::find($id);
         if ($findItem->delete()) {

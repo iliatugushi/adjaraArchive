@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function index()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_admins')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $admins = Admin::all();
         return view('admin.admins.index', ['admins' => $admins]);
@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function create()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_admins')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
 
         $roles = Role::all();
@@ -64,7 +64,7 @@ class AdminController extends Controller
     public function edit(Admin $admin)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_admins')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $roles = Role::all();
         return view('admin.admins.edit', ['admin' => $admin, 'roles' => $roles]);
@@ -104,11 +104,10 @@ class AdminController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_admins')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Admin::find($id);
         if ($findItem->delete()) {
-            $this->newAction('მონაცემის წაშლა', 'Admin', $id);
             return redirect()->route('admins.index')->withSuccess('მონაცემი წაიშალა');
         }
         return back()->withErrors(['დაფიქსირდა შეცდომა']);

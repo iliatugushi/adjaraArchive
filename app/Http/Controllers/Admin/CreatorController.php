@@ -18,7 +18,7 @@ class CreatorController extends Controller
     public function index()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_creators')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $creators = Creator::all();
         return view('admin.creators.index', ['creators' => $creators]);
@@ -28,7 +28,7 @@ class CreatorController extends Controller
     public function create()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_creators')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $types = Type::all();
         $mode = 'create';
@@ -54,7 +54,7 @@ class CreatorController extends Controller
     public function edit(Creator $creator)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_creators')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         $types = Type::all();
@@ -86,7 +86,7 @@ class CreatorController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_creators')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Creator::find($id);
         if ($findItem->delete()) {

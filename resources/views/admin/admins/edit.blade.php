@@ -74,15 +74,21 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary btn-sm caps">რედაქტირება</button>
-                        @can('delete admins')
-                        <a href="{{ route('admins.destroy', [$admin->id]) }}"
-                            class="btn btn-danger float-right btn-xs caps">წაშლა</a>
-                        @endcan
+
+                        @if (Auth::guard('admin')->user()->hasPermissionTo('view_sakmes'))
+
+                        <button type="button" class="btn btn-danger float-right btn-sm caps"
+                            onclick=" document.getElementById('delete-form').submit();">წაშლა</button>
+
+                        @endif
                     </div>
                 </div>
             </form>
 
-
+            <form id="delete-form" action="{{ route('admins.destroy', [$admin->id]) }}" method="post"
+                style="display:none;">
+                <input type="hidden" name="_method" value="delete"> {{ csrf_field() }}
+            </form>
 
 
         </div>

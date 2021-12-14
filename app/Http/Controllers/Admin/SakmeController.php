@@ -18,7 +18,7 @@ class SakmeController extends Controller
     public function index(Anaweri $anaweri)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('view_sakmes')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $sakmes = Sakme::where('anaweri_id', $anaweri->id)->get();
         return view('admin.sakmes.index', ['sakmes' => $sakmes, 'anaweri' => $anaweri]);
@@ -28,7 +28,7 @@ class SakmeController extends Controller
     public function create(Anaweri $anaweri)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_sakmes')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'create';
 
@@ -49,7 +49,7 @@ class SakmeController extends Controller
     {
 
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_sakmes')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         return view('admin.sakmes.create', ['sakme' => $sakme, 'mode' => $mode, 'anaweri' => $sakme->anaweri]);
@@ -72,7 +72,7 @@ class SakmeController extends Controller
     public function destroy($id)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('delete_sakmes')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $findItem = Sakme::find($id);
         if ($findItem->delete()) {

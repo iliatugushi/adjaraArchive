@@ -25,7 +25,7 @@ class RoleController extends Controller
     public function create()
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('create_roles')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'create';
         return view('admin.roles.create', ['mode' => $mode]);
@@ -46,7 +46,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_roles')) {
-            return 'You Dont Have Permission';
+            return view('admin.noAccess');
         }
         $mode = 'edit';
         return view('admin.roles.create', ['role' => $role, 'mode' => $mode]);
