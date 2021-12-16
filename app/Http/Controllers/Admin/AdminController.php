@@ -44,9 +44,12 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        // if (Auth::guard()->user()->is_moderator == 1) {
-        //     return redirect()->route('admin.dashboard');
-        // }
+
+        $check = Admin::where('email', $request->email)->first();
+        if ($check) {
+            return back()->withErrors(['დაფიქსირდა შეცდომა ეს ელფოსტა გამოყენებულია']);
+        }
+
         $new = new Admin;
         $new->name = $request->name;
         $new->email = $request->email;
@@ -66,6 +69,9 @@ class AdminController extends Controller
         if (!auth()->guard('admin')->user()->hasPermissionTo('edit_admins')) {
             return view('admin.noAccess');
         }
+
+
+
         $roles = Role::all();
         return view('admin.admins.edit', ['admin' => $admin, 'roles' => $roles]);
     }
@@ -76,7 +82,18 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
+
+
         $admin = Admin::find($request->admin_id);
+
+        $check = Admin::where([['email', $request->email], ['id', '!=', $admin->id]])->first();
+        if ($check) {
+            return back()->withErrors(['დაფიქსირდა შეცდომა ეს ელფოსტა გამოყენებულია']);
+        }
+
+
+
+
         $admin->name = $request->name;
         $admin->email = $request->email;
         if (!empty($request->password)) {

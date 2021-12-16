@@ -41,6 +41,11 @@ class ArchiveController extends Controller
 
     public function store(Request $request)
     {
+        $check = Archive::where('identifier', $request->identifier)->first();
+        if ($check) {
+            return back()->withErrors(['დაფიქსირდა შეცდომა იდენტიფიკატორი უკვე არსებობს']);
+        }
+
         $new = Archive::create($request->except(['_token', '_method',]));
         if ($new) {
             if ($request->file('file')) {
@@ -71,6 +76,12 @@ class ArchiveController extends Controller
 
     public function update(Request $request, Archive $archive)
     {
+        $check = Archive::where([['identifier', $request->identifier], ['id', '!=', $archive->id]])->first();
+        if ($check) {
+            return back()->withErrors(['დაფიქსირდა შეცდომა იდენტიფიკატორი უკვე არსებობს']);
+        }
+
+
         $update = $archive->update($request->except(['_token', '_method']));
         if ($update) {
             if ($request->file('file')) {

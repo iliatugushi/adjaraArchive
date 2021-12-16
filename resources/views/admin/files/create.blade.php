@@ -123,15 +123,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('date') }} </label>
-                                            <textarea class="form-control"
-                                                name="date">{{ $mode === 'create' ? '' : $file->date }}</textarea>
+                                            <input type="text" class="form-control datePicker" name="date"
+                                                value="{{ $mode === 'create' ? '' : $file->date }}"
+                                                autocomplete="off" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>{{ __('level_of_description') }}
-                                            </label>
-                                            <textarea class="form-control"
-                                                name="level_of_description">{{ $mode === 'create' ? '' : $file->level_of_description }}</textarea>
-                                        </div>
+                                        <input type="hidden" name="level_of_description" value="ფაილი" />
                                         <div class="form-group">
                                             <label>{{ __('extent_and_medium_of_the_unit_of_description') }}
                                             </label>

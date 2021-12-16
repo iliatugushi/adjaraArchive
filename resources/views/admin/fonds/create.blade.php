@@ -163,16 +163,13 @@
                                                 required>{{ $mode === 'create' ? '' : $fond->title }}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>{{ __('date') }} </label>
-                                            <textarea class="form-control"
-                                                name="date">{{ $mode === 'create' ? '' : $fond->date }}</textarea>
+                                            <label>{{ __('date') }}</label>
+                                            <input type="text" class="form-control datePicker" name="date"
+                                                value="{{ $mode === 'create' ? '' : $fond->date }}"
+                                                autocomplete="off" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>{{ __('level_of_description') }}
-                                            </label>
-                                            <textarea class="form-control"
-                                                name="level_of_description">{{ $mode === 'create' ? '' : $fond->level_of_description }}</textarea>
-                                        </div>
+
+                                        <input type="hidden" name="level_of_description" value="საარქივო ობიექტი" />
                                         <div class="form-group">
                                             <label>{{ __('extent_and_medium_of_the_unit_of_description') }}
                                             </label>

@@ -263,6 +263,9 @@
             <button type="button" class="btn btn-outline-secondary zoom" method="out">
                 <i class="fas fa-search-minus"></i>
             </button>
+            <button type="button" class="btn btn-outline-secondary fullscreen" method="open" title="მთელი ეკრანი">
+                <i class="fas fa-expand"></i>
+            </button>
         </div>
     </div>
 
@@ -284,7 +287,7 @@
 
     $(document).ready(function() {
         loadResults(sakme_id, current_page, per_page);
-        // activateThumb(0);
+
     });
 
     // left side open close
@@ -356,13 +359,25 @@
     $('.nextPrev').click(function(){
         let newIndex = 0;
         if($(this).attr('method') === 'next'){
-            newIndex = parseInt($("#indexID").val()) + 1;
+            if(mode === 'double'){
+                newIndex = parseInt($("#indexID").val()) + 2;
+            }
+            else{
+                newIndex = parseInt($("#indexID").val()) + 1;
+            }
+
             if(newIndex > $('#maxImages').attr('maxImages')){
                 newIndex = 1;
             }
         }
         else{
-            newIndex = parseInt($("#indexID").val()) - 1;
+            if(mode === 'double'){
+                newIndex = parseInt($("#indexID").val()) - 2;
+            }
+            else{
+                newIndex = parseInt($("#indexID").val()) - 1;
+            }
+
             if(newIndex < 1){
                 newIndex = $('#maxImages').attr('maxImages');
             }
@@ -622,6 +637,39 @@
             loadResults(sakme_id, current_page, per_page);
         }
     });
+
+    // FULLSCREEN
+    $(document).on("click", '.fullscreen', function(event) {
+        if($(this).attr('method') === 'open'){
+            openFullscreen();
+            $(this).attr('method', 'close');
+        }
+        else{
+            closeFullscreen();
+            $(this).attr('method', 'open');
+        }
+    });
+    var elem = document.documentElement;
+    function openFullscreen() {
+        $('#leftOpenClose').click();
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+    function closeFullscreen() {
+        $('#leftOpenClose').click();
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
 
 </script>
 @endsection

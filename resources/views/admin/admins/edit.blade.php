@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>ელფოსტა</label>
-                                        <input type="text" class="form-control" name="email" value="{{$admin->email}}"
+                                        <input type="email" class="form-control" name="email" value="{{$admin->email}}"
                                             required>
                                     </div>
                                     <div class="form-group">
@@ -55,9 +55,9 @@
                                     <div class="form-group">
                                         <label>როლი</label>
                                         <select class="form-control" name="role_id" required>
-                                            <option selected disabled>აირჩიეთ ... </option>
+                                            <option disabled>აირჩიეთ ... </option>
                                             @foreach($roles as $item)
-                                            @if(Auth::guard('admin')->user()->hasRole($item->name))
+                                            @if($admin->hasRole($item->name))
                                             <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
                                             @else
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>

@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('fonts/stylesheet.css')}} ">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.bootstrap4.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <style>
         table tbody tr th {
             font-weight: 300 !important;
@@ -159,7 +163,7 @@
             style="background-color:#bd8700;padding:0px !important;margin:0px !important;">
             <div class="container-fluid">
                 <a href="{{route('admin.dashboard')}}" class="navbar-brand">
-                    <img src="{{ asset('images/logo_view_header.png') }}" title="აჭარის საარქივო სამმართველო"
+                    <img src="{{ asset('images/logo_view_header.png') }}" title="საარქივო საინფორმაციო სისტემა"
                         style="height:60px;">
                     <span class="brand-text caps">AIS</span>
                 </a>
@@ -270,10 +274,18 @@
 
 
 
+
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{ asset('node_modules/tinymce/tinymce.min.js') }}"></script>
 
     <script src="{{asset('js/additional.js')}}"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+
+
     <script>
         $(document).ready(function() {
             initialization();
@@ -283,6 +295,7 @@
             $('.dataTables_filter input[type="search"]').attr('placeholder','საძიებო სიტყვა ....').css({'width':'350px','display':'inline-block'});
         });
         function initialization() {
+
             var table = $('.tableData').DataTable({
                 "oLanguage": {
                 "sSearch": ""
@@ -357,6 +370,8 @@
             $('.datePicker').datepicker({
               format: 'yyyy-mm-dd'
             });
+            $('select').attr('data-live-search', 'true');
+            $('select').selectpicker();
         }
 
 

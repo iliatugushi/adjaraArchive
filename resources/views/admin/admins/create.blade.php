@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>ელფოსტა</label>
-                                        <input type="text" class="form-control" name="email" required>
+                                        <input type="email" class="form-control" name="email" required>
                                     </div>
                                     <div class="form-group">
                                         <label>პაროლი</label>

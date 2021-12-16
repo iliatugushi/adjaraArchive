@@ -53,7 +53,7 @@
                                     <th>{{$item->id}}</th>
                                     <th>{{$item->name}}</th>
                                     <th>{{$item->email}}</th>
-                                    <th>{{$item->getRoleNames()}}</th>
+                                    <th>{{$item->roles->pluck('name')}}</th>
                                     <td>
                                         <a href="{{route('admins.edit', ['admin'=>$item->id])}}"
                                             class="btn btn-primary btn-xs" title='რედაქტირება'>
