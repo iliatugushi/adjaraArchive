@@ -270,6 +270,8 @@
             <strong>Developed BY <a href="http://gtntech.com/">GTNTECH</a>.</strong> All rights
             reserved.
         </footer>
+
+
     </div>
 
 
@@ -371,7 +373,8 @@
               format: 'yyyy-mm-dd'
             });
             $('select').attr('data-live-search', 'true');
-            $('select').selectpicker();
+            $('select').not('.connectionElement').selectpicker();
+
         }
 
 

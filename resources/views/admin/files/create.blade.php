@@ -62,6 +62,79 @@
                                 უკან
                             </a>
                         </div>
+
+                        <div class="modal fade" id="modal-default">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title">
+                                            კავშირი<br>
+                                            <small>აირჩიეთ დონე რომელთანაც გინდათ რომ კავშირი დააფიქსიროთ.</small>
+                                        </h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <p style="font-size:12px;">არქივი</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="form-control connectionElement" element="archive">
+                                                    <option>აირჩიეთ ...</option>
+                                                    @foreach($archives as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-5">
+                                                <p style="font-size:12px;">ფონდი</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="form-control connectionElement" element="fond"
+                                                    id="connection-fond"></select>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <p style="font-size:12px;">ანაწერი</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="form-control connectionElement" element="anaweri"
+                                                    id="connection-anaweri">
+                                                </select>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <p style="font-size:12px;">საქმე</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="form-control connectionElement" element="sakme"
+                                                    id="connection-sakme"></select>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <p style="font-size:12px;">ფაილი</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="form-control connectionElement" element="file"
+                                                    id="connection-file"> </select>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <p style="font-size:12px;">იდენტიფიკატორი</p>
+                                                <input class="form-control" id="identifikatorDisplay" type="text"
+                                                    readonly style="font-size:10px;" />
+                                                <hr>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -228,8 +301,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('related_units_of_description') }} </label>
-                                            <textarea class="form-control"
-                                                name="related_units_of_description">{{ $mode === 'create' ? '' : $file->related_units_of_description }}</textarea>
+                                            <button type="button" class="btn btn-outline-secondary btn-xs caps"
+                                                data-toggle="modal" data-target="#modal-default">
+                                                კავშირი
+                                            </button>
+                                            <textarea class="form-control" name="related_units_of_description"
+                                                id="related_units_of_description"
+                                                readonly>{{ $mode === 'create' ? '' : $file->related_units_of_description }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ __('related_units_of_description_comment') }} </label>
+                                            <textarea class="form-control" name="related_units_of_description_comment"
+                                                id="related_units_of_description_comment">{{ $mode === 'create' ? '' : $file->related_units_of_description_comment }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('publication_note') }} </label>

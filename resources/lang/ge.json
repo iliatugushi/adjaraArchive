@@ -110,6 +110,7 @@
     "existence_and_location_of_originals": "ორიგინალი დოკუმენტების არსებობა და ადგილმდებარეობა",
     "existence_and_location_of_copies": "დოკუმენტების ასლების არსებობა და ადგილმდებარეობა",
     "related_units_of_description": "დაკავშირებული ჩანაწერები",
+    "related_units_of_description_comment": "დაკავშირებული ჩანაწერები კავშირის კომენტარი",
     "publication_note": "პუბლიკაციები",
 
     "note": "დამატებითი კომენტარები და შენიშვნები",

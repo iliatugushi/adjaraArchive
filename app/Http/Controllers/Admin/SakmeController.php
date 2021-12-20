@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 use App\Models\Sakme;
 use App\Models\Anaweri;
+use App\Models\Archive;
 
 class SakmeController extends Controller
 {
@@ -31,8 +32,8 @@ class SakmeController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'create';
-
-        return view('admin.sakmes.create', ['mode' => $mode, 'anaweri' => $anaweri]);
+        $archives = Archive::all();
+        return view('admin.sakmes.create', ['mode' => $mode, 'anaweri' => $anaweri, 'archives' => $archives]);
     }
 
     public function store(Request $request)
@@ -52,7 +53,8 @@ class SakmeController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'edit';
-        return view('admin.sakmes.create', ['sakme' => $sakme, 'mode' => $mode, 'anaweri' => $sakme->anaweri]);
+        $archives = Archive::all();
+        return view('admin.sakmes.create', ['sakme' => $sakme, 'mode' => $mode, 'anaweri' => $sakme->anaweri, 'archives' => $archives]);
     }
 
     public function show(Sakme $sakme)

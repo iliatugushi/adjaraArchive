@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Anaweri;
 use App\Models\Fond;
+use App\Models\Archive;
 
 class AnaweriController extends Controller
 {
@@ -30,7 +31,8 @@ class AnaweriController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'create';
-        return view('admin.anaweris.create', ['mode' => $mode, 'fond' => $fond]);
+        $archives = Archive::all();
+        return view('admin.anaweris.create', ['mode' => $mode, 'fond' => $fond, 'archives' => $archives]);
     }
 
     public function store(Request $request)
@@ -50,7 +52,8 @@ class AnaweriController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'edit';
-        return view('admin.anaweris.create', ['anaweri' => $anaweri, 'mode' => $mode, 'fond' => $anaweri->fond]);
+        $archives = Archive::all();
+        return view('admin.anaweris.create', ['anaweri' => $anaweri, 'mode' => $mode, 'fond' => $anaweri->fond, 'archives' => $archives]);
     }
 
     public function show(Anaweri $anaweri)

@@ -46,7 +46,15 @@ class Fond extends Model implements HasMedia
 
     public function getIdentifikatorCleanAttribute()
     {
-        $identifikator = "GE_" . $this->archive->IdentifikatorClean . '_' . $this->creator->identifier . '_' . $this->reference_code;
+        $id = 'GE_';
+        if (!empty($this->archive->IdentifikatorClean)) {
+            $id .=  $this->archive->IdentifikatorClean;
+        }
+        if (!empty($this->creator->identifier)) {
+            $id .= '_' . $this->creator->identifier . '_';
+        }
+
+        $identifikator =  $id . $this->reference_code;
         return $identifikator;
     }
 }

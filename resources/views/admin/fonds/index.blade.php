@@ -43,14 +43,18 @@
                                     <th scope="row" style="width:200px;">{{$item->IdentifikatorClean}}</th>
                                     <th scope="row">{{$item->title}}</th>
                                     <th scope="row">
+                                        @if(!empty($item->creator->id))
                                         <a href="{{ route('creators.show', ['creator' => $item->creator->id]) }}">
                                             {{$item->creator->name}}
                                         </a>
+                                        @endif
                                     </th>
                                     <th scope="row">
+                                        @if(!empty($item->archive->id))
                                         <a href="{{ route('archives.show', ['archive' => $item->archive->id]) }}">
                                             {{$item->archive->name}}
                                         </a>
+                                        @endif
                                     </th>
                                     <td>
                                         <a href="{{route('fonds.edit', ['fond'=>$item->id])}}"

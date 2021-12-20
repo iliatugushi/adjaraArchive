@@ -19,7 +19,10 @@ use Spatie\Permission\Models\Permission;
 
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Resources\AnaweriResource;
+use App\Http\Resources\FondResource;
+use App\Http\Resources\SakmeResource;
+use App\Http\Resources\FileResource;
 
 class AdminController extends Controller
 {
@@ -226,6 +229,40 @@ class AdminController extends Controller
             'html' => $html,
             'element' => $model,
             'elementID' => $modelID
+        ]);
+    }
+
+    public function connectionElements(Request $request)
+    {
+        $data = [];
+        $connection_element = $request->connection_element;
+        $connection_element_id = $request->connection_element_id;
+
+        if ($connection_element === 'archive') {
+            $data = FondResource::collection(Fond::where('archive_id', $connection_element_id)->get());
+            $identifikator = Archive::findOrFail($connection_element_id)->identifikatorClean;
+        }
+        if ($connection_element === 'fond') {
+            $data = AnaweriResource::collection(Anaweri::where('fond_id', $connection_element_id)->get());
+            $identifikator = Fond::findOrFail($connection_element_id)->identifikatorClean;
+        }
+        if ($connection_element === 'anaweri') {
+            $data = SakmeResource::collection(Sakme::where('anaweri_id', $connection_element_id)->get());
+            $identifikator = Anaweri::findOrFail($connection_element_id)->identifikatorClean;
+        }
+        if ($connection_element === 'sakme') {
+            $data = FileResource::collection(File::where('sakme_id', $connection_element_id)->get());
+            $identifikator = Sakme::findOrFail($connection_element_id)->identifikatorClean;
+        }
+        if ($connection_element === 'file') {
+            $identifikator = File::findOrFail($connection_element_id)->identifikatorClean;
+        }
+        return response()->json([
+            'result' => 'success',
+            'data' => $data,
+            'connection_element' => $connection_element,
+            'connection_element_id' => $connection_element_id,
+            'identifikator' => $identifikator
         ]);
     }
 }

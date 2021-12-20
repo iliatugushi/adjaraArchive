@@ -93,3 +93,32 @@ $("#liveSearch").on("keyup", function() {
 });
 
 // TREE END
+
+// Related Elements
+$(".connectionElement").on("change", function() {
+    let connection_element = $(this).attr("element");
+    let connection_element_id = $(this).val();
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr("content")
+        }
+    });
+    $.ajax({
+        headers: { "X-CSRF-Token": $("meta[name=_token]").attr("content") },
+        url: "/connection-elements",
+        type: "POST",
+        cache: false,
+        data: {
+            connection_element: connection_element,
+            connection_element_id: connection_element_id
+        },
+        datatype: "html",
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert(xhr + "\n" + textStatus + "\n" + thrownError);
+        }
+    });
+});

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\File;
 use App\Models\Sakme;
+use App\Models\Archive;
 
 class FileController extends Controller
 {
@@ -30,7 +31,8 @@ class FileController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'create';
-        return view('admin.files.create', ['mode' => $mode, 'sakme' => $sakme]);
+        $archives = Archive::all();
+        return view('admin.files.create', ['mode' => $mode, 'sakme' => $sakme, 'archives' => $archives]);
     }
 
     public function store(Request $request)
@@ -50,7 +52,8 @@ class FileController extends Controller
             return view('admin.noAccess');
         }
         $mode = 'edit';
-        return view('admin.files.create', ['file' => $file, 'mode' => $mode, 'sakme' => $file->sakme]);
+        $archives = Archive::all();
+        return view('admin.files.create', ['file' => $file, 'mode' => $mode, 'sakme' => $file->sakme, 'archives' => $archives]);
     }
 
     public function show(File $file)

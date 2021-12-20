@@ -93,3 +93,62 @@ $("#liveSearch").on("keyup", function() {
 });
 
 // TREE END
+// Related Elements
+$(".connectionElement").on("change", function() {
+    let connection_element = $(this).attr("element");
+    let connection_element_id = $(this).val();
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr("content")
+        }
+    });
+    $.ajax({
+        headers: { "X-CSRF-Token": $("meta[name=_token]").attr("content") },
+        url: "/connection-elements",
+        type: "POST",
+        cache: false,
+        data: {
+            connection_element: connection_element,
+            connection_element_id: connection_element_id
+        },
+        success: function(data) {
+            console.log(data);
+            $("#related_units_of_description").val(data.identifikator);
+            $("#identifikatorDisplay").val(data.identifikator);
+            let select_content = "";
+            if (data.connection_element === "archive") {
+                select_content = "#connection-fond";
+            }
+            if (data.connection_element === "fond") {
+                select_content = "#connection-anaweri";
+            }
+            if (data.connection_element === "anaweri") {
+                select_content = "#connection-sakme";
+            }
+            if (data.connection_element === "sakme") {
+                select_content = "#connection-file";
+            }
+            $(select_content).html("");
+            // related_units_of_description;
+
+            if (data.result === "success") {
+                if (data.data.length > 0) {
+                    $(select_content).append(
+                        $("<option>", {
+                            text: "აირჩიეთ"
+                        })
+                    );
+                    $.each(data.data, function(i, item) {
+                        $(select_content).append(
+                            $("<option>", {
+                                value: item.id,
+                                text: item.identifikator
+                            })
+                        );
+                    });
+                }
+            }
+        }
+    });
+});

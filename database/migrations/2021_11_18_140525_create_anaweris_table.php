@@ -46,6 +46,7 @@ class CreateAnawerisTable extends Migration
             $table->longText('existence_and_location_of_originals')->nullable();
             $table->longText('existence_and_location_of_copies')->nullable();
             $table->longText('related_units_of_description')->nullable();
+            $table->longText('related_units_of_description_comment')->nullable();
             $table->longText('publication_note')->nullable();
 
             $table->longText('note')->nullable();
