@@ -18,13 +18,16 @@
 
         .bg_pic::before {
             content: "";
-            background-image: url('images/pic_40.jpg');
+            background-image: url('images/3.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             position: absolute;
             top: 0px;
             right: 0px;
             bottom: 0px;
             left: 0px;
-            opacity: 0.15;
+            opacity: 0.8;
         }
     </style>
     @yield('css')

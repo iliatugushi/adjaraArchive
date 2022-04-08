@@ -77,8 +77,9 @@ class SakmeController extends Controller
             return view('admin.noAccess');
         }
         $findItem = Sakme::find($id);
+        $anaweri = $findItem->anaweri;
         if ($findItem->delete()) {
-            return redirect()->route('sakmes.index')->withSuccess('მონაცემი წაიშალა');
+            return redirect()->route('sakmes.index', ['anaweri' => $anaweri->id])->withSuccess('მონაცემი წაიშალა');
         }
         return back()->withErrors(['დაფიქსირდა შეცდომა']);
     }

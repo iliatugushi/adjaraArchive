@@ -151,6 +151,33 @@
             background-color: #e0a306;
             border-color: #e0a306;
         }
+
+        .topBar {
+            height: 200px;
+            background-image: url("{{ asset('images/topPic.png') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .bootstrap-select {
+            max-width: 200px;
+        }
+
+        .bootstrap-select .btn {
+            width: 150px;
+            font-size: 10px;
+        }
+
+        .bootstrap-select .dropdown-menu {
+            max-width: 1000px;
+            font-size: 12px;
+        }
+
+        select::-ms-expand {
+            /* for IE 11 */
+            display: none;
+        }
     </style>
     @yield('css')
 
@@ -159,6 +186,7 @@
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
+        <div class="topBar d-none d-lg-block"> </div>
         <nav class="main-header navbar navbar-expand-md navbar-dark  navbar-primary"
             style="background-color:#bd8700;padding:0px !important;margin:0px !important;">
             <div class="container-fluid">
@@ -286,7 +314,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -298,16 +333,31 @@
         });
         function initialization() {
 
-            var table = $('.tableData').DataTable({
-                "oLanguage": {
-                "sSearch": ""
-                },
-                "aaSorting": [ [0, 'asc'] ],
-                    "bPaginate": false,
-                    "bLengthChange": false,
-                    "bFilter": true,
-                    "bInfo": false,
-                    "bAutoWidth": true,
+           var table = $('.tableData').DataTable({
+            "aaSorting": [
+            [0, 'asc']
+            ],
+            dom: 'lBfrtip',
+            lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 ', '25 ', '50 ', 'ყველა' ]
+            ],
+
+            colReorder: true,
+            // buttons: [ 'copy', 'excel', 'pdf', 'colvis' ],
+            buttons: [{
+            extend: 'excel',
+            title: 'Export',
+            text: "ექსელში დაექსპორტება",
+            exportOptions: {
+            columns: ':visible'
+            }
+            }, {
+            extend: 'colvis',
+            text: "სვეტების დამალვა",
+
+            }
+            ],
 
 
                 initComplete: function() {
@@ -374,7 +424,6 @@
             });
             $('select').attr('data-live-search', 'true');
             $('select').not('.connectionElement').selectpicker();
-
         }
 
 

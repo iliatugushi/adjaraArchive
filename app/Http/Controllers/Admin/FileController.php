@@ -76,8 +76,9 @@ class FileController extends Controller
             return view('admin.noAccess');
         }
         $findItem = File::find($id);
+        $sakme = $findItem->sakme;
         if ($findItem->delete()) {
-            return redirect()->route('files.index')->withSuccess('მონაცემი წაიშალა');
+            return redirect()->route('files.index', ['sakme' => $sakme->id])->withSuccess('მონაცემი წაიშალა');
         }
         return back()->withErrors(['დაფიქსირდა შეცდომა']);
     }
@@ -85,6 +86,7 @@ class FileController extends Controller
     public function details($identifikator)
     {
         $file = File::where('reference_code', $identifikator)->first();
+
         if (!$file) {
             dd('File Not Found');
         }

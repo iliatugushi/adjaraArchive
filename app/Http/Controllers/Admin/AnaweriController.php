@@ -76,8 +76,10 @@ class AnaweriController extends Controller
             return view('admin.noAccess');
         }
         $findItem = Anaweri::find($id);
+
+        $fond = $findItem->fond;
         if ($findItem->delete()) {
-            return redirect()->route('anaweris.index')->withSuccess('მონაცემი წაიშალა');
+            return redirect()->route('anaweris.index', ['fond' => $fond->id])->withSuccess('მონაცემი წაიშალა');
         }
         return back()->withErrors(['დაფიქსირდა შეცდომა']);
     }
