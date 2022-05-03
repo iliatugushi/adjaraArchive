@@ -1,315 +1,337 @@
-@extends('layouts.viewer')
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link href="{{asset('favicon.ico')}}" rel="icon">
+    <title>VIEWER</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
-@section('css')
-<style>
-    /* LEFT */
+    <style>
+        #leftSide {
+            background-color: white;
+            position: fixed;
+            width: 25%;
+            left: 0;
+            overflow-y: scroll;
+            top: 0;
+            bottom: 0;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        #thumbs {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            overflow-x: hidden;
+        }
+
+        .img-element {
+            padding: 10px;
+        }
+
+        .active {
+            background-color: #ebebeb;
+        }
+
+        .img-element img {
+            height: 120px;
+        }
+
+        #indexID {
+            width: 40px;
+            border-radius: 10px;
+            border: solid 1px #b1b1b1;
+            padding-left: 10px;
+        }
 
 
-    #leftSide {
-        background-color: white;
-        position: fixed;
-        width: 25%;
-        left: 0;
-        overflow-y: scroll;
-        top: 0;
-        bottom: 0;
-        padding: 20px;
-        z-index: 999;
-    }
+        /* CENTER */
+        .full {
+            width: 105%;
+            left: 0%;
+        }
 
-    #thumbs {
-        list-style: none;
-        padding: 0px;
-        margin: 0px;
-        overflow-x: hidden;
-    }
+        .boxed {
+            width: 75%;
+            left: 25%;
+        }
 
-    .img-element {
-        padding: 10px;
-    }
+        #middleBox {
+            background-color: #252525;
+            display: grid;
+            place-items: center;
+            position: fixed;
 
-    .active {
-        background-color: #ebebeb;
-    }
+            height: 100%;
 
-    .img-element img {
-        height: 120px;
-    }
+        }
 
-    #indexID {
-        width: 40px;
-        border-radius: 10px;
-        border: solid 1px #b1b1b1;
-        padding-left: 10px;
-    }
+        #content_viewer {
+            float: left;
+            width: 800px;
+            position: absolute;
+            z-index: 9;
+            cursor: move;
+        }
 
+        #content_viewer img {
+            float: left;
+        }
 
-    /* CENTER */
-    .full {
-        width: 105%;
-        left: 0%;
-    }
+        .singleView img {
+            width: 100%;
+        }
 
-    .boxed {
-        width: 75%;
-        left: 25%;
-    }
+        .bookView img {
+            width: 50%;
+        }
 
-    #middleBox {
-        background-color: #252525;
-        display: grid;
-        place-items: center;
-        position: fixed;
+        #footer {
+            position: absolute;
+            right: auto;
+            bottom: 50px;
+            z-index: 999;
+            place-items: center;
+        }
 
-        height: 100%;
+        #header {
+            position: absolute;
+            right: auto;
+            top: 50px;
+            z-index: 999;
+            place-items: center;
+        }
 
-    }
+        .btn-outline-primary {
+            color: white;
+            border: solid 1px white;
+        }
 
-    #content_viewer {
-        float: left;
-        width: 800px;
-        position: absolute;
-        z-index: 9;
-        cursor: move;
-    }
+        #leftOpenClose {
+            position: absolute;
+            top: 20;
+            left: 25%;
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px 10px 20px;
+            z-index: 999;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
 
-    #content_viewer img {
-        float: left;
-    }
+        .scrollpane {
+            height: 600px;
+            overflow: auto;
+        }
 
-    .singleView img {
-        width: 100%;
-    }
+        .scrollpaneNoMore {
+            height: 600px;
+            overflow: auto;
+        }
 
-    .bookView img {
-        width: 50%;
-    }
+        .loading {
+            color: black;
+        }
+    </style>
+</head>
 
-    #footer {
-        position: absolute;
-        right: auto;
-        bottom: 50px;
-        z-index: 999;
-        place-items: center;
-    }
-
-    #header {
-        position: absolute;
-        right: auto;
-        top: 50px;
-        z-index: 999;
-        place-items: center;
-    }
-
-    .btn-outline-primary {
-        color: white;
-        border: solid 1px white;
-    }
-
-    #leftOpenClose {
-        position: absolute;
-        top: 20;
-        left: 25%;
-        background-color: white;
-        color: black;
-        font-weight: bold;
-        padding: 10px 20px 10px 20px;
-        z-index: 999;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-
-    .scrollpane {
-        height: 600px;
-        overflow: auto;
-    }
-
-    .scrollpaneNoMore {
-        height: 600px;
-        overflow: auto;
-    }
-
-    .loading {
-        color: black;
-    }
-</style>
-
-@endsection
-<div class="container-fluid">
+<body class="hold-transition layout-top-nav">
+    <div class="container-fluid">
 
 
 
-    <a href="javascript:void(0)" id="leftOpenClose" state="open"><span id="pages">1</span> /<span
-            class="totalCounter"></span></a>
-    <div id="maxImages" style="display:none;" maxImages=""></div>
-    <div id="leftSide">
-        <div class="col-12 text-center mb-2 pt-3 row">
-            <div class="col-4 text-left" style="padding:0px;">
-                <input type="text" value="1" id="indexID"> / <span class="totalCounter"></span>
+        <button id="leftOpenClose" onclick="leftOpenClose()">
+            <span id="pages">1</span> /<span class="totalCounter"></span>
+        </button>
+        <div id="maxImages" style="display:none;" maxImages=""></div>
+        <div id="leftSide">
+            <div class="col-12 text-center mb-2 pt-3 row">
+                <div class="col-4 text-left" style="padding:0px;">
+                    <input type="text" value="1" id="indexID"> / <span class="totalCounter"></span>
+                </div>
+                <div class="col-4 text-center" style="padding:0px;">
+                    <button class="btn btn-default btn-sm  caps" data-toggle="collapse" data-target="#filtersBox">
+                        ფილტრები
+                    </button>
+                </div>
+                <div class="col-4 text-right" style="padding:0px;">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input class="thumbSelector" type="radio" value="single" autocomplete="off" checked>
+                            <i class="far fa-file-alt"></i>
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input class="thumbSelector" type="radio" value="double" autocomplete="off">
+                            <i class="fas fa-book-open"></i>
+                        </label>
+
+                    </div>
+                </div>
+                <div class="col-12 collapse pt-3 pb-3" id="filtersBox">
+                    <div class="sliders">
+                        <form id="imageEditor">
+                            <p>
+                                <label for="gs">Grayscale</label>
+                                <input id="gs" name="gs" type="range" min="0" max="100" value="0">
+                            </p>
+
+                            <p>
+                                <label for="blur">Blur</label>
+                                <input id="blur" name="blur" type="range" min="0" max="10" value="0">
+                            </p>
+
+                            <p>
+                                <label for="br">Brightness</label>
+                                <input id="br" name="br" type="range" min="0" max="200" value="100">
+                            </p>
+
+                            <p>
+                                <label for="ct">Contrast</label>
+                                <input id="ct" name="ct" type="range" min="0" max="200" value="100">
+                            </p>
+
+                            <p>
+                                <label for="huer">Hue Rotate</label>
+                                <input id="huer" name="huer" type="range" min="0" max="360" value="0">
+                            </p>
+
+                            <p>
+                                <label for="opacity">Opacity</label>
+                                <input id="opacity" name="opacity" type="range" min="0" max="100" value="100">
+                            </p>
+
+                            <p>
+                                <label for="invert">Invert</label>
+                                <input id="invert" name="invert" type="range" min="0" max="100" value="0">
+                            </p>
+
+                            <p>
+                                <label for="saturate">Saturate</label>
+                                <input id="saturate" name="saturate" type="range" min="0" max="500" value="100">
+                            </p>
+
+                            <p>
+                                <label for="sepia">Sepia</label>
+                                <input id="sepia" name="sepia" type="range" min="0" max="100" value="0">
+                            </p>
+
+                            <input type="reset" form="imageEditor" id="reset" value="სტანდარტზე დაბრუნება"
+                                class="font-control caps" />
+
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="col-4 text-center" style="padding:0px;">
-                <button class="btn btn-default btn-sm  caps" data-toggle="collapse" data-target="#filtersBox">
-                    ფილტრები
+
+            <div id="thumbView" class="scrollpane text-center pt-3 pb-3">
+                <ul id="thumbs"> </ul>
+            </div>
+        </div>
+
+        <div id="middleBox" class="boxed">
+            <div id="content_viewer" class="singleView"> </div>
+
+            <div id="header">
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default"
+                    id="infoButton" url="">
+                    <i class="fas fa-info"></i>
+                </button>
+                <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-power-off"></i>
+                </a>
+            </div>
+
+            <div id="footer">
+                <button type="button" class="btn btn-outline-secondary nextPrev" onclick="nextPrev('prev')">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary nextPrev" onclick="nextPrev('next')">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary rotate" onclick="rotateContent('minus')">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary rotate" onclick="rotateContent('plus')">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary zoom" onclick="zoomContent('in')">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary zoom" onclick="zoomContent('reset')">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary zoom" onclick="zoomContent('out')">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary fullscreen" onclick="fullscreenModeTrigger()"
+                    title="მთელი ეკრანი">
+                    <i class="fas fa-expand"></i>
                 </button>
             </div>
-            <div class="col-4 text-right" style="padding:0px;">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input class="thumbSelector" type="radio" value="single" autocomplete="off" checked>
-                        <i class="far fa-file-alt"></i>
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input class="thumbSelector" type="radio" value="double" autocomplete="off">
-                        <i class="fas fa-book-open"></i>
-                    </label>
-
-                </div>
-            </div>
-            <div class="col-12 collapse pt-3 pb-3" id="filtersBox">
-                <div class="sliders">
-                    <form id="imageEditor">
-                        <p>
-                            <label for="gs">Grayscale</label>
-                            <input id="gs" name="gs" type="range" min="0" max="100" value="0">
-                        </p>
-
-                        <p>
-                            <label for="blur">Blur</label>
-                            <input id="blur" name="blur" type="range" min="0" max="10" value="0">
-                        </p>
-
-                        <p>
-                            <label for="br">Brightness</label>
-                            <input id="br" name="br" type="range" min="0" max="200" value="100">
-                        </p>
-
-                        <p>
-                            <label for="ct">Contrast</label>
-                            <input id="ct" name="ct" type="range" min="0" max="200" value="100">
-                        </p>
-
-                        <p>
-                            <label for="huer">Hue Rotate</label>
-                            <input id="huer" name="huer" type="range" min="0" max="360" value="0">
-                        </p>
-
-                        <p>
-                            <label for="opacity">Opacity</label>
-                            <input id="opacity" name="opacity" type="range" min="0" max="100" value="100">
-                        </p>
-
-                        <p>
-                            <label for="invert">Invert</label>
-                            <input id="invert" name="invert" type="range" min="0" max="100" value="0">
-                        </p>
-
-                        <p>
-                            <label for="saturate">Saturate</label>
-                            <input id="saturate" name="saturate" type="range" min="0" max="500" value="100">
-                        </p>
-
-                        <p>
-                            <label for="sepia">Sepia</label>
-                            <input id="sepia" name="sepia" type="range" min="0" max="100" value="0">
-                        </p>
-
-                        <input type="reset" form="imageEditor" id="reset" value="სტანდარტზე დაბრუნება"
-                            class="font-control caps" />
-
-                    </form>
-                </div>
-            </div>
         </div>
 
-        <div id="thumbView" class="scrollpane text-center pt-3 pb-3">
-            <ul id="thumbs"> </ul>
-        </div>
     </div>
 
-    <div id="middleBox" class="boxed">
-        <div id="content_viewer" class="singleView"> </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <div id="header">
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-default"
-                id="infoButton" url="">
-                <i class="fas fa-info"></i>
-            </button>
-            <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
-                <i class="fas fa-power-off"></i>
-            </a>
-        </div>
+    <script>
+        let mode = 'single';
+        let currentIndex = 0;
+        var rotation = 0;
+        var zoom = 1;
+        let leftPanel = 'open';
+        let fullscreenMode = 'open';
 
-        <div id="footer">
-            <button type="button" class="btn btn-outline-secondary nextPrev" method="prev">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary nextPrev" method="next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary rotate" method="minus">
-                <i class="fas fa-undo"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary rotate" method="plus">
-                <i class="fas fa-redo"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary zoom" method="in">
-                <i class="fas fa-search-plus"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary zoom" method="reset">
-                <i class="fas fa-search"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary zoom" method="out">
-                <i class="fas fa-search-minus"></i>
-            </button>
-            <button type="button" class="btn btn-outline-secondary fullscreen" method="open" title="მთელი ეკრანი">
-                <i class="fas fa-expand"></i>
-            </button>
-        </div>
-    </div>
+        var current_page = {!! $current_page !!};
+        let per_page = {!! $per_page !!};
+        let sakme_id = {!! json_encode($sakme_id) !!}
+        let url_ret = '/sakmes/view-files-per-page';
 
-</div>
-
-
-
-@section('js')
-
-<script>
-    let mode = 'single';
-    let currentIndex = 0;
-    var rotation = 0;
-    var zoom = 1;
-
-    var current_page = {!! $current_page !!};
-    let per_page = {!! $per_page !!};
-    let sakme_id = {!! json_encode($sakme_id) !!}
-
-    $(document).ready(function() {
         loadResults(sakme_id, current_page, per_page);
 
-    });
-
     // left side open close
-    $('#leftOpenClose').click(function(){
-
-        if($(this).attr('state')==='open'){
+    function leftOpenClose(){
+        if(leftPanel === 'open'){
             $('#leftSide').hide();
             $('#middleBox').removeClass('boxed');
             $('#middleBox').addClass('full');
-            $(this).attr('state', 'closed');
-            $(this).css('left', '0%');
+            leftPanel = 'closed';
+            $('#leftOpenClose').css('left', '0%');
         }
         else{
             $('#leftSide').show();
             $('#middleBox').removeClass('full');
             $('#middleBox').addClass('boxed');
-            $(this).attr('state', 'open');
-            $(this).css('left', '25%');
+            leftPanel = 'open';
+            $('#leftOpenClose').css('left', '25%');
         }
-    });
+    };
+
 
     // Thumb Click
+    function thumbClick(index, url){
+        alert(url);
+        activateThumb(index);
+        // Change Index
+        $("#indexID").val(parseInt(index) + 1);
+
+        let urlToGo = 'files/details/' + url;
+
+        // Change URL DEPENDING ON THUMB
+        $('#infoButton').attr('url', urlToGo);
+    }
     $(document).on("click", '.img-element', function(event) {
         activateThumb($(this).attr('index'));
         // Change Index
@@ -355,10 +377,10 @@
     });
 
 
-    // Next Prev Button
-    $('.nextPrev').click(function(){
+    // Next Prev
+    function nextPrev(method){
         let newIndex = 0;
-        if($(this).attr('method') === 'next'){
+        if(method === 'next'){
             if(mode === 'double'){
                 newIndex = parseInt($("#indexID").val()) + 2;
             }
@@ -384,41 +406,38 @@
         }
         $("#indexID").val(newIndex);
         activateThumb(newIndex -1);
-    });
+    };
 
 
     // ROTATION
-    $('.rotate').click(function() {
-        let rotationMethod = $(this).attr('method');
-        if(rotationMethod === 'plus'){
+    function rotateContent(method){
+        if(method === 'plus'){
             rotation += 90;
         }
         else{
             rotation -= 90;
         }
-
-        $(this).rotate(rotation);
-    });
-    jQuery.fn.rotate = function(degrees) {
-        $('#content_viewer').css({'transform' : 'rotate('+ degrees +'deg)'});
+        $('#content_viewer').css({'transform' : 'rotate('+ rotation +'deg)'});
     };
 
 
-    // ZOOM
-     $('.zoom').click(function() {
-        let zoomMethod = $(this).attr('method');
 
-        if(zoomMethod === 'in'){
+    // ZOOM
+    function zoomContent(method){
+        if(method === 'in'){
             zoom += 0.3;
         }
-        if(zoomMethod === 'out'){
+        if(method === 'out'){
             zoom -= 0.3;
         }
-        if(zoomMethod === 'reset'){
+        if(method === 'reset'){
             zoom = 1;
+            let img_a = document.getElementById("content_viewer");
+            img_a.style.top =  "auto";
+            img_a.style.left =  "auto";
         }
         $("#content_viewer").animate({ 'zoom': zoom }, 0);
-    });
+    };
     $(document).ready(function(){
         $('#middleBox').bind('wheel mousewheel', function(e){
             var delta;
@@ -590,7 +609,7 @@
             }
         });
         $.ajax({
-            url: "/sakmes/view-files-per-page",
+            url: url_ret,
             type: "post",
             async: "false",
             data: {
@@ -639,37 +658,36 @@
     });
 
     // FULLSCREEN
-    $(document).on("click", '.fullscreen', function(event) {
-        if($(this).attr('method') === 'open'){
-            openFullscreen();
-            $(this).attr('method', 'close');
+    function fullscreenModeTrigger(){
+        var elem = document.documentElement;
+        if (fullscreenMode === 'open'){
+            leftOpenClose();
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+            fullscreenMode = 'close'
         }
         else{
-            closeFullscreen();
-            $(this).attr('method', 'open');
-        }
-    });
-    var elem = document.documentElement;
-    function openFullscreen() {
-        $('#leftOpenClose').click();
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
-        }
-    }
-    function closeFullscreen() {
-        $('#leftOpenClose').click();
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
+             leftOpenClose();
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+            fullscreenMode = 'open'
         }
     }
 
-</script>
-@endsection
+
+
+
+    </script>
+</body>
+
+</html>

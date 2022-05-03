@@ -99,6 +99,7 @@ class SakmeController extends Controller
 
     public function viewFilesPerPage(Request $request)
     {
+
         $identifikator = $request->sakme_id;
         $current_page = $request->current_page;
         $per_page = $request->per_page;
@@ -110,7 +111,6 @@ class SakmeController extends Controller
             'current_page' => $current_page,
             'per_page' => $per_page
         ]);
-
         if ($response->ok() && $response->json()['result']) {
 
             $data = $response->json();
