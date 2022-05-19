@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link href="{{asset('favicon.ico')}}" rel="icon">
+    <link href="{{ asset('favicon.ico') }}" rel="icon">
     <title>VIEWER</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
 
 
     <style>
@@ -144,6 +143,7 @@
         .loading {
             color: black;
         }
+
     </style>
 </head>
 
@@ -301,392 +301,402 @@
 
         loadResults(sakme_id, current_page, per_page);
 
-    // left side open close
-    function leftOpenClose(){
-        if(leftPanel === 'open'){
-            $('#leftSide').hide();
-            $('#middleBox').removeClass('boxed');
-            $('#middleBox').addClass('full');
-            leftPanel = 'closed';
-            $('#leftOpenClose').css('left', '0%');
-        }
-        else{
-            $('#leftSide').show();
-            $('#middleBox').removeClass('full');
-            $('#middleBox').addClass('boxed');
-            leftPanel = 'open';
-            $('#leftOpenClose').css('left', '25%');
-        }
-    };
-
-
-    // Thumb Click
-    function thumbClick(index, url){
-        alert(url);
-        activateThumb(index);
-        // Change Index
-        $("#indexID").val(parseInt(index) + 1);
-
-        let urlToGo = 'files/details/' + url;
-
-        // Change URL DEPENDING ON THUMB
-        $('#infoButton').attr('url', urlToGo);
-    }
-    $(document).on("click", '.img-element', function(event) {
-        activateThumb($(this).attr('index'));
-        // Change Index
-        $("#indexID").val(parseInt($(this).attr('index')) + 1);
-
-        let urlToGo = 'files/details/' + $(this).attr('elID');
-
-        // Change URL DEPENDING ON THUMB
-        $('#infoButton').attr('url', urlToGo);
-    });
-
-    // Open Details
-    $(document).on("click", '#infoButton', function(event) {
-        window.open('/' + $(this).attr('url'), '_blank');
-    });
-
-    // Change Mode
-    $(".thumbSelector").click(function(){
-       mode = $(this).val();
-       $("#indexID").val();
-       if(mode === 'double'){
-        $('#content_viewer').removeClass('singleView');
-        $('#content_viewer').addClass('bookView');
-       }
-       else{
-        $('#content_viewer').addClass('singleView');
-        $('#content_viewer').removeClass('bookView');
-       }
-       activateThumb(parseInt($("#indexID").val()) - 1);
-    });
-
-    // Index Change
-    $(document).on("keyup", '#indexID', function(event) {
-       if(parseInt(this.value) < $('#maxImages').attr('maxImages')){
-            if ($.isNumeric(this.value)) {
-                let newIndex = this.value - 1;
-                activateThumb(newIndex);
+        // left side open close
+        function leftOpenClose() {
+            if (leftPanel === 'open') {
+                $('#leftSide').hide();
+                $('#middleBox').removeClass('boxed');
+                $('#middleBox').addClass('full');
+                leftPanel = 'closed';
+                $('#leftOpenClose').css('left', '0%');
+            } else {
+                $('#leftSide').show();
+                $('#middleBox').removeClass('full');
+                $('#middleBox').addClass('boxed');
+                leftPanel = 'open';
+                $('#leftOpenClose').css('left', '25%');
             }
-        }
-        else{
-            alert('ამ ინდექსის გვერდი არ არსებობს');
-        }
-    });
+        };
 
 
-    // Next Prev
-    function nextPrev(method){
-        let newIndex = 0;
-        if(method === 'next'){
-            if(mode === 'double'){
-                newIndex = parseInt($("#indexID").val()) + 2;
+        // Thumb Click
+        function thumbClick(index, url) {
+            alert(url);
+            activateThumb(index);
+            // Change Index
+            $("#indexID").val(parseInt(index) + 1);
+
+            let urlToGo = 'files/details/' + url;
+
+            // Change URL DEPENDING ON THUMB
+            $('#infoButton').attr('url', urlToGo);
+        }
+        $(document).on("click", '.img-element', function(event) {
+            activateThumb($(this).attr('index'));
+            // Change Index
+            $("#indexID").val(parseInt($(this).attr('index')) + 1);
+
+            let urlToGo = 'files/details/' + $(this).attr('elID');
+
+            // Change URL DEPENDING ON THUMB
+            $('#infoButton').attr('url', urlToGo);
+        });
+
+        // Open Details
+        $(document).on("click", '#infoButton', function(event) {
+            window.open('/' + $(this).attr('url'), '_blank');
+        });
+
+        // Change Mode
+        $(".thumbSelector").click(function() {
+            mode = $(this).val();
+            $("#indexID").val();
+            if (mode === 'double') {
+                $('#content_viewer').removeClass('singleView');
+                $('#content_viewer').addClass('bookView');
+            } else {
+                $('#content_viewer').addClass('singleView');
+                $('#content_viewer').removeClass('bookView');
             }
-            else{
-                newIndex = parseInt($("#indexID").val()) + 1;
+            activateThumb(parseInt($("#indexID").val()) - 1);
+        });
+
+        // Index Change
+        $(document).on("keyup", '#indexID', function(event) {
+            if (parseInt(this.value) < $('#maxImages').attr('maxImages')) {
+                if ($.isNumeric(this.value)) {
+                    let newIndex = this.value - 1;
+                    activateThumb(newIndex);
+                }
+            } else {
+                alert('ამ ინდექსის გვერდი არ არსებობს');
             }
+        });
 
-            if(newIndex > $('#maxImages').attr('maxImages')){
-                newIndex = 1;
+
+        // Next Prev
+        function nextPrev(method) {
+            let newIndex = 0;
+            if (method === 'next') {
+                if (mode === 'double') {
+                    newIndex = parseInt($("#indexID").val()) + 2;
+                } else {
+                    newIndex = parseInt($("#indexID").val()) + 1;
+                }
+
+                if (newIndex > $('#maxImages').attr('maxImages')) {
+                    newIndex = 1;
+                }
+            } else {
+                if (mode === 'double') {
+                    newIndex = parseInt($("#indexID").val()) - 2;
+                } else {
+                    newIndex = parseInt($("#indexID").val()) - 1;
+                }
+
+                if (newIndex < 1) {
+                    newIndex = $('#maxImages').attr('maxImages');
+                }
             }
-        }
-        else{
-            if(mode === 'double'){
-                newIndex = parseInt($("#indexID").val()) - 2;
+            $("#indexID").val(newIndex);
+            activateThumb(newIndex - 1);
+        };
+
+
+        // ROTATION
+        function rotateContent(method) {
+            if (method === 'plus') {
+                rotation += 90;
+            } else {
+                rotation -= 90;
             }
-            else{
-                newIndex = parseInt($("#indexID").val()) - 1;
-            }
-
-            if(newIndex < 1){
-                newIndex = $('#maxImages').attr('maxImages');
-            }
-        }
-        $("#indexID").val(newIndex);
-        activateThumb(newIndex -1);
-    };
-
-
-    // ROTATION
-    function rotateContent(method){
-        if(method === 'plus'){
-            rotation += 90;
-        }
-        else{
-            rotation -= 90;
-        }
-        $('#content_viewer').css({'transform' : 'rotate('+ rotation +'deg)'});
-    };
+            $('#content_viewer').css({
+                'transform': 'rotate(' + rotation + 'deg)'
+            });
+        };
 
 
 
-    // ZOOM
-    function zoomContent(method){
-        if(method === 'in'){
-            zoom += 0.3;
-        }
-        if(method === 'out'){
-            zoom -= 0.3;
-        }
-        if(method === 'reset'){
-            zoom = 1;
-            let img_a = document.getElementById("content_viewer");
-            img_a.style.top =  "auto";
-            img_a.style.left =  "auto";
-        }
-        $("#content_viewer").animate({ 'zoom': zoom }, 0);
-    };
-    $(document).ready(function(){
-        $('#middleBox').bind('wheel mousewheel', function(e){
-            var delta;
-            if (e.originalEvent.wheelDelta !== undefined)
-                delta = e.originalEvent.wheelDelta;
-            else
-            delta = e.originalEvent.deltaY * -1;
-
-            if(delta > 0) {
+        // ZOOM
+        function zoomContent(method) {
+            if (method === 'in') {
                 zoom += 0.3;
-                $("#content_viewer").animate({ 'zoom': zoom },0);
             }
-            else{
-               zoom -= 0.3;
-                $("#content_viewer").animate({ 'zoom': zoom },0);
+            if (method === 'out') {
+                zoom -= 0.3;
             }
+            if (method === 'reset') {
+                zoom = 1;
+                let img_a = document.getElementById("content_viewer");
+                img_a.style.top = "auto";
+                img_a.style.left = "auto";
+            }
+            $("#content_viewer").animate({
+                'zoom': zoom
+            }, 0);
+            $("#content_viewer").css("MozTransform", "scale(" + zoom + ")");
+        };
+        $(document).ready(function() {
+            $('#middleBox').bind('wheel mousewheel', function(e) {
+                var delta;
+
+                if (e.originalEvent.wheelDelta !== undefined)
+                    delta = e.originalEvent.wheelDelta;
+                else
+                    delta = e.originalEvent.deltaY * -1;
+
+                if (delta > 0) {
+                    zoom += 0.3;
+                    $("#content_viewer").animate({
+                        'zoom': zoom
+                    }, 0);
+                    $("#content_viewer").css("MozTransform", "scale(" + zoom + ")");
+                } else {
+
+                    zoom -= 0.3;
+                    $("#content_viewer").animate({
+                        'zoom': zoom
+                    }, 0);
+                    $("#content_viewer").css("MozTransform", "scale(" + zoom + ")");
+                }
+            });
         });
-    });
 
-    function activateThumb(index){
+        function activateThumb(index) {
 
-        var html = '';
-        $('.img-element').removeClass('active');
-        if(mode === 'single'){
-            $('#thumb-' + index).addClass('active');
-            let src = $('#thumb-' + index).children('img').attr('src');
-            html = '<img src="'+src+'" class="img-fluid img-element-viewer" />';
-
-            $('#pages').html(parseInt(index) + 1);
-
-        }
-        if(mode === 'double'){
-            var nextID = parseInt(index) + 1;
-            if($('#thumb-' + nextID).length){
-                let currentHTML = '';
-                let nextHTML = '';
-
+            var html = '';
+            $('.img-element').removeClass('active');
+            if (mode === 'single') {
                 $('#thumb-' + index).addClass('active');
-                let srcCurrent = $('#thumb-' + index).children('img').attr('src');
-                currentHTML = '<img src="'+srcCurrent+'" class="img-fluid img-element-viewer" />';
+                let src = $('#thumb-' + index).children('img').attr('src');
+                html = '<img src="' + src + '" class="img-fluid img-element-viewer" />';
 
-
-                $('#thumb-' + nextID).addClass('active');
-                let srcNext = $('#thumb-' + nextID).children('img').attr('src');
-                nextHTML = '<img src="'+srcNext+'" class="img-fluid img-element-viewer"/>';
-
-                html = currentHTML + nextHTML;
-
-                let firstIndex = parseInt(index) + 1;
-                let secondIndex = parseInt(index) + 2;
-                $('#pages').html(firstIndex + ' - ' + secondIndex);
+                $('#pages').html(parseInt(index) + 1);
 
             }
-            else{
-                let currentHTML = '';
-                let nextHTML = '';
+            if (mode === 'double') {
+                var nextID = parseInt(index) + 1;
+                if ($('#thumb-' + nextID).length) {
+                    let currentHTML = '';
+                    let nextHTML = '';
 
-                $('#thumb-' + index).addClass('active');
-                let srcCurrent = $('#thumb-' + index).children('img').attr('src');
-                currentHTML = '<img src="'+srcCurrent+'" class="img-fluid img-element-viewer" />';
+                    $('#thumb-' + index).addClass('active');
+                    let srcCurrent = $('#thumb-' + index).children('img').attr('src');
+                    currentHTML = '<img src="' + srcCurrent + '" class="img-fluid img-element-viewer" />';
 
 
-                $('#thumb-0').addClass('active');
-                let srcNext = $('#thumb-0').children('img').attr('src');
-                nextHTML = '<img src="'+srcNext+'" class="img-fluid img-element-viewer"/>';
-                html = currentHTML + nextHTML;
+                    $('#thumb-' + nextID).addClass('active');
+                    let srcNext = $('#thumb-' + nextID).children('img').attr('src');
+                    nextHTML = '<img src="' + srcNext + '" class="img-fluid img-element-viewer"/>';
 
-                let firstIndex = parseInt(index) + 1;
-                let secondIndex = 1;
-                $('#pages').html(firstIndex + ' - ' + secondIndex);
+                    html = currentHTML + nextHTML;
 
+                    let firstIndex = parseInt(index) + 1;
+                    let secondIndex = parseInt(index) + 2;
+                    $('#pages').html(firstIndex + ' - ' + secondIndex);
+
+                } else {
+                    let currentHTML = '';
+                    let nextHTML = '';
+
+                    $('#thumb-' + index).addClass('active');
+                    let srcCurrent = $('#thumb-' + index).children('img').attr('src');
+                    currentHTML = '<img src="' + srcCurrent + '" class="img-fluid img-element-viewer" />';
+
+
+                    $('#thumb-0').addClass('active');
+                    let srcNext = $('#thumb-0').children('img').attr('src');
+                    nextHTML = '<img src="' + srcNext + '" class="img-fluid img-element-viewer"/>';
+                    html = currentHTML + nextHTML;
+
+                    let firstIndex = parseInt(index) + 1;
+                    let secondIndex = 1;
+                    $('#pages').html(firstIndex + ' - ' + secondIndex);
+
+                }
             }
-        }
-        $('#content_viewer').html(html);
-    }
-
-    // FILTERS
-    function editImage() {
-        var gs = $("#gs").val(); // grayscale
-        var blur = $("#blur").val(); // blur
-        var br = $("#br").val(); // brightness
-        var ct = $("#ct").val(); // contrast
-        var huer = $("#huer").val(); //hue-rotate
-        var opacity = $("#opacity").val(); //opacity
-        var invert = $("#invert").val(); //invert
-        var saturate = $("#saturate").val(); //saturate
-        var sepia = $("#sepia").val(); //sepia
-
-        $("#content_viewer img").css(
-        "filter", 'grayscale(' + gs+
-        '%) blur(' + blur +
-        'px) brightness(' + br +
-        '%) contrast(' + ct +
-        '%) hue-rotate(' + huer +
-        'deg) opacity(' + opacity +
-        '%) invert(' + invert +
-        '%) saturate(' + saturate +
-        '%) sepia(' + sepia + '%)'
-        );
-
-        $("#content_viewer img").css(
-        "-webkit-filter", 'grayscale(' + gs+
-        '%) blur(' + blur +
-        'px) brightness(' + br +
-        '%) contrast(' + ct +
-        '%) hue-rotate(' + huer +
-        'deg) opacity(' + opacity +
-        '%) invert(' + invert +
-        '%) saturate(' + saturate +
-        '%) sepia(' + sepia + '%)'
-        );
-    }
-    //When sliders change image will be updated via editImage() function
-    $("input[type=range]").change(editImage).mousemove(editImage);
-    // Reset sliders back to their original values on press of 'reset'
-    $('#imageEditor').on('reset', function () {
-        setTimeout(function() {
-            editImage();
-        }, 0);
-    });
-
-    // DRAGGABLE
-    dragElement(document.getElementById("content_viewer"));
-    function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        elmnt.onmousedown = dragMouseDown;
-        function dragMouseDown(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // get the mouse cursor position at startup:
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
+            $('#content_viewer').html(html);
         }
 
-        function elementDrag(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // calculate the new cursor position:
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            // set the element's new position:
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        // FILTERS
+        function editImage() {
+            var gs = $("#gs").val(); // grayscale
+            var blur = $("#blur").val(); // blur
+            var br = $("#br").val(); // brightness
+            var ct = $("#ct").val(); // contrast
+            var huer = $("#huer").val(); //hue-rotate
+            var opacity = $("#opacity").val(); //opacity
+            var invert = $("#invert").val(); //invert
+            var saturate = $("#saturate").val(); //saturate
+            var sepia = $("#sepia").val(); //sepia
+
+            $("#content_viewer img").css(
+                "filter", 'grayscale(' + gs +
+                '%) blur(' + blur +
+                'px) brightness(' + br +
+                '%) contrast(' + ct +
+                '%) hue-rotate(' + huer +
+                'deg) opacity(' + opacity +
+                '%) invert(' + invert +
+                '%) saturate(' + saturate +
+                '%) sepia(' + sepia + '%)'
+            );
+
+            $("#content_viewer img").css(
+                "-webkit-filter", 'grayscale(' + gs +
+                '%) blur(' + blur +
+                'px) brightness(' + br +
+                '%) contrast(' + ct +
+                '%) hue-rotate(' + huer +
+                'deg) opacity(' + opacity +
+                '%) invert(' + invert +
+                '%) saturate(' + saturate +
+                '%) sepia(' + sepia + '%)'
+            );
         }
-
-        function closeDragElement() {
-            /* stop moving when mouse button is released:*/
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-    }
-
-
-
-    function updateCurrentPage(page){
-        current_page = page;
-    }
-
-    // Load Thumbs
-    function loadResults(sakme_id, current_page, per_page) {
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr("content")
-            }
+        //When sliders change image will be updated via editImage() function
+        $("input[type=range]").change(editImage).mousemove(editImage);
+        // Reset sliders back to their original values on press of 'reset'
+        $('#imageEditor').on('reset', function() {
+            setTimeout(function() {
+                editImage();
+            }, 0);
         });
-        $.ajax({
-            url: url_ret,
-            type: "post",
-            async: "false",
-            data: {
-                delay: 3,
-                sakme_id: sakme_id,
-                current_page: current_page,
-                per_page: per_page
-            },
-            beforeSend: function(xhr) {
-                $("#thumbs").after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading", true);
-            },
-            success: function(data) {
-                if(data.result === 'success'){
-                    // Append Data To DOM
-                    $.each(data.data, function() {
-                        $('#thumbs').append(
-                                '<li class="img-element" id="thumb-'+this.index+'" index="'+this.index+'" elID="'+this.id+'">'+
-                                    '<img src="data:image/'+this.mime_type + ';base64,'+ this.file_base_64 +'" />'+
+
+        // DRAGGABLE
+        dragElement(document.getElementById("content_viewer"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0,
+                pos2 = 0,
+                pos3 = 0,
+                pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+
+
+        function updateCurrentPage(page) {
+            current_page = page;
+        }
+
+        // Load Thumbs
+        function loadResults(sakme_id, current_page, per_page) {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": jQuery('meta[name="csrf-token"]').attr("content")
+                }
+            });
+            $.ajax({
+                url: url_ret,
+                type: "post",
+                async: "false",
+                data: {
+                    delay: 3,
+                    sakme_id: sakme_id,
+                    current_page: current_page,
+                    per_page: per_page
+                },
+                beforeSend: function(xhr) {
+                    $("#thumbs").after($("<li class='loading'>Loading...</li>").fadeIn('slow')).data("loading",
+                        true);
+                },
+                success: function(data) {
+                    if (data.result === 'success') {
+                        // Append Data To DOM
+                        $.each(data.data, function() {
+                            $('#thumbs').append(
+                                '<li class="img-element" id="thumb-' + this.index + '" index="' +
+                                this.index + '" elID="' + this.id + '">' +
+                                '<img src="data:image/' + this.mime_type + ';base64,' + this
+                                .file_base_64 + '" />' +
                                 '</li>'
                             );
-                    });
-                    updateCurrentPage(current_page + 1);
-                    $('.totalCounter').html(data.total);
-                    $('#maxImages').attr('maxImages', data.total);
+                        });
+                        updateCurrentPage(current_page + 1);
+                        $('.totalCounter').html(data.total);
+                        $('#maxImages').attr('maxImages', data.total);
 
-                }
-                else{
-                    if(data.message == 'No More Files'){
-                        $('.scrollpane').removeClass('scrollpane');
+                    } else {
+                        if (data.message == 'No More Files') {
+                            $('.scrollpane').removeClass('scrollpane');
+                        }
                     }
-                }
-                $(".loading").fadeOut('fast', function() {
-                    $(this).remove();
-                });
+                    $(".loading").fadeOut('fast', function() {
+                        $(this).remove();
+                    });
 
+                }
+            });
+        };
+
+        // Load More Content AJAX
+        $('.scrollpane').on('scroll', function() {
+            let list = $(this).get(0);
+            if (list.scrollTop + list.clientHeight >= list.scrollHeight) {
+                loadResults(sakme_id, current_page, per_page);
             }
         });
-    };
 
-    // Load More Content AJAX
-    $('.scrollpane').on('scroll', function() {
-        let list = $(this).get(0);
-        if(list.scrollTop + list.clientHeight >= list.scrollHeight) {
-            loadResults(sakme_id, current_page, per_page);
-        }
-    });
-
-    // FULLSCREEN
-    function fullscreenModeTrigger(){
-        var elem = document.documentElement;
-        if (fullscreenMode === 'open'){
-            leftOpenClose();
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
+        // FULLSCREEN
+        function fullscreenModeTrigger() {
+            var elem = document.documentElement;
+            if (fullscreenMode === 'open') {
+                leftOpenClose();
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    /* Safari */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    /* IE11 */
+                    elem.msRequestFullscreen();
+                }
+                fullscreenMode = 'close'
+            } else {
+                leftOpenClose();
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    /* IE11 */
+                    document.msExitFullscreen();
+                }
+                fullscreenMode = 'open'
             }
-            fullscreenMode = 'close'
         }
-        else{
-             leftOpenClose();
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
-            fullscreenMode = 'open'
-        }
-    }
-
-
-
-
     </script>
 </body>
 
